@@ -6,9 +6,16 @@
 #show math.equation: set block(breakable: true)
 #set underline(stroke: 1pt, offset: 0.3em)
 
+#heading(level: 1,outlined: false, numbering: none)[目录]
+#outline(title: none)
+
 = 主要概念,符号约定,定理,公式
 == 极限和连续性
+- #text(fill: red)[极限求解的书写规范: 乘除法中同阶无穷小可替换,加减法中不行]
+- 导数极限定理: (成立条件: 原函数连续可导)
 == 一元函数的微分,积分
+- 第一类间断点: 左右极限都存在, 分为可去间断点和跳跃间断点
+- 隐函数定理: $(dif y)/(dif x) = - (phi_x)/(phi_y)$
 == 多元函数的微分
 == 二元函数/三元函数的积分
 == 无穷级数
@@ -188,3 +195,134 @@ $
 $
 
 == 一元函数微分学
+1. 函数 $f(x)=(e^x -1)|x^3 - x^2 + x|$ 的不可导点个数为 #underline[2]
+
+2. 设 $f(x+x_0) = alpha f(x)$ 成立, $f'(0)=beta$, $alpha, beta$ 为非零常数, 则 $x_0$ 处 #underline[($f(x)$ 可导且 $f'(x_0) = alpha beta$)]
+
+3. 设 $ f (x) = cases(x^2 sin t/x &quad x!= 0, 0 &quad x=0) quad (t!=0) $, 在 $x=0$ #underline[可导且 $f'(x)$ 不连续]
+
+4. 设函数 $f(x)$ 在区间 $(-1,1)$ 有定义, 在 $x=0$ 连续, 则:
+  - 当 $lim_(x->0) x^(-1/3) f(x) =0$ 时, $f(x)$ 在 $x=0$ 可导 错
+  - 当 $lim_(x->0) x^(-2) f(x) =0$ 时, $f(x)$ 在 $x=0$ 可导 对
+  - 当 $f(x)$ 在 $x=0$ 可导时, $lim_(x->0) x^(-1/3) f(x) =0$ 对
+
+#text(fill: red)[注: 导数出现了第二类间断点]
+
+5. 设 $ f(x)= cases(x^2 sin 1/x &quad x!=0, 0 &quad x=0) $, 记 $F(x) = g(f(x))$, $g(x)$ 可导, 则 $F(x)$ 在 $x=0$ 处 #underline[(可导且 $F'(0)=0$)]
+
+6. 设函数 $y=f(x)$ 由参数方程 $ cases(x=t^3 + pi/2 - 1, y=e^t^2) $ 确定, 则 $ lim_(n->infinity) n (f(pi/2 + 2/n) - f(pi/2)) & = 2 f'(pi/2) = 2 (2 t e^t^2)/(3t^2)|_(t=1) = (4 e) /3 $
+
+7.设 $f(0)=a>0, f'(0) = b$, 求 $ lim_(x->0) (f(x)^(f(x)) - f(0)^(f(x)))/x
+&= ((a+b x + o(x))^(a + b x + o(x)) - a^(a+ b x + o(x)))/x\
+&=( e^( ( ln a + ln (1+ b/a x + o(x)) )(a+b x+o(x)) ) - e^(ln a (a+ b x + o(x))) )/x\
+&= ( e^( ln a thin a + ln a thin b x + ln(b/a) a x + o(x) ) - e^(ln a thin a + ln a thin b x + o(x)) )/x \
+&= (e^(ln a thin a) (ln(b/a) a x + o(x)))/x\
+&=a^(a+1) ln(b/a) $
+
+8. 已知函数 $g(x)$ 连续, 设 $f(x) = integral_0^x^2 g(x t ) dif t$, 求 $f'(x)$, 判断 $f'(x)$ 在 $x=0$ 的连续性;
+
+解
+$ f(x) = 1/x integral_0^x^3 g(t) dif t $
+
+$ f'(x) = 3x^2 g(x^3) - 1/x^2 integral_0^x^3 g(t) dif t $
+
+$ |f'(x)| <= |3x^2 g(x^3)| + |1/x^2 dot x^3 max_(0<t<x) g(t)| -> 0 $
+故连续
+
+9. 设函数 $f(x)$ 在 $x=a$ 邻域内可导且 $f(a)=0$, 证明 $g(x) = |f(x)|$ 在 $x=a$ 可导
+
+#text(fill: red)[???]
+
+10. 设 $ f(x) = cases((g(x)-e^x)/x &quad x!=0, a &quad x=0) $, 其中 $g(x)$ 有二阶连续导数, $g(0)=1, g'(0)=-1$:
+  - 确定 $a$ 使 $f(x)$ 在 $(-infinity,+infinity)$ 连续
+  - 此时 $f(x)$ 是否可导? 求 $f'(x)$
+
+解: $a=-2$, $ f'(x) = cases(
+  (x g'(x) - x e^x - g(x) + e^x)/x^2 & quad x!=0,
+  (x(-2 + (g''(0)-1)x + o(x)) + 2 x + 1/2 x^2 - 1/2 g''(0) x^2 + o(x^2))/x^2 = 1/2 g''(0) - 1/2 & quad x=0
+) $
+
+11. 设 $f(x)$ 有二阶连续导数, $f(0)=0$, 令 $ g(x) = cases((f(x))/x &quad x!=0, f'(0) &quad x=0) $
+  - 求 $g'(x)$
+  - $g'(x)$ 在 $x=0$ 的连续性?
+解: $g(x)$ 连续, 在 $x in (-infinity,0) union (0,+infinity)$, $g'(x) = (x f'(x) - f(x))/x^2$
+$
+  lim_(x->0) g'(x) = lim_(x->0) (x(f'(0)+f''(x) x + o(x)) - f(0) - f'(0) x - 1/2 f''(x) x^2 + o(x^2))/x^2\
+  =1/2 f''(0)
+$
+
+12. 设 $ f(x) = cases(
+    x arctan (1/sqrt(x)) & quad x>0,
+    pi/2 (e^(sin x) -1) & quad x<=0
+  ) $
+  - 讨论 $f(x)$ 在 $x=0$ 的连续性和可导性
+  - $f'(x)$ 在 $x=0$ 的连续性
+解: 易证连续,
+$ f'(x) = cases(
+  x dot -1/2 x^(-3/2) x/(x+1) + arctan 1/sqrt(x) & quad x>0,
+  pi/2 cos x e^(sin x) & quad x<=0
+) -> 0 quad (x->0) $ 可导且导数连续
+
+13. 设 $f(x)$ 在 $x=a$ 可导, 则 $|f(x)|$ 在 $x=a$ 不可导的充要条件是: #underline[($f(a)=0, f'(a)!=0$)]
+
+== 一元函数微分的计算
+1. 若 $y = sin(e^(-sqrt(x)))$, 则 $ (dif y)/(dif x)|_(x=1) & = 1/2 1/sqrt(x) dot - e^(-sqrt(x)) cos(e^(-sqrt(x)))|_(x=1) = -1/(2 e) cos (1/e) $
+
+
+2. 设 $f(x)$ 在 $x=0$ 某邻域内具有连续导数, 且 $f(0)=1$, $f'(0)=1/2, f'(x) = 1/2 f(f(x)-1)$, 求 $f''(0)$
+
+$ f''(x) = 1/2 f'(x) f'(f(x)-1) -> 1/2 dot 1/2 dot 1/2 = 1/8 $
+
+3. 设 $y=y(x)$ 由方程 $y^3 + x y + x^2 - 2 x +1 = 0$ 确定并且 $y(1) = 0$, 则
+$
+  lim_(x->1) (x-1)^3/(integral_1^x y(t) dif t) & = lim_(x->1) (3(x-1)^2)/(y(x)) = lim_(x->1) 6(x-1) (dif x)/(dif y) \
+                                               & = -6 lim_(x->1) (x-1) phi_y / phi_x \
+                                               & = -6 lim_(x->1) (x-1) (3 y^2 + x)/(y + 2x -2)|_(x=1,y=0) \
+                                               & = -6 lim_(x->1) (x-1)/(y+2x-2) dot 1 \
+                                               & = -6 lim_(x->1) (1)/(y'+2) quad (y'(1) = 0) \
+                                               & =3
+$
+
+4. 设函数 $y=y(x)$ 由方程 $arctan x/y = ln (y^2 + x^2)$ 确定, 求 $(dif y)/(dif x)$
+$
+  (dif y)/(dif x) & = - (phi_x)/(phi_y) \
+                  & = - (1/y 1/((x/y)^2+1) - 2x/(x^2+y^2))/(-x/y^2 1/((x/y)^2+1) - 2y/(x^2+y^2)) \
+                  & = (y-2x)/(x-2y)
+$
+
+$
+  (dif^2 y)/(dif^2 x) & = ((x-2y)(y'-2) + (1-2y')(y-2x))/(x-2y)^2 \
+                      & =(-4 y y' - 3 x y' - 4 x -3 y)/(x-2y)^2 \
+                      & = (-(4y+3x)(y-2x)-(3y+4x)(-2y+x))/(x-2y)^3 \
+                      & =(2y^2 + 10 x y + 2 x^2)/((x-2y)^3)
+$
+
+5. 设 $y = 2x + sin x$, 求反函数的二阶导数
+$ (dif x) / (dif y) = 1/(2+ cos x) $
+$
+  (dif^2 x)/(dif^2 y) & = - x' dot sin x 1/(2+ cos x)^2 \
+                      & = - (sin x)/(2 + cos x)^3
+$
+
+== 一元函数的微分学几何应用
+
+1. 设 $f(x) = |ln|x||$, 则:
+  - $x=1$ 不是极值点: 错
+  - $x=1$ 不是拐点: 错
+  - $x=-1$ 不是驻点: 对 #text(fill: red)[定义是导数为零]
+  - $x=0$ 不是渐近线: 错
+
+2. 设 $f(x)$ 在 $x=0$ 连续, 且 $lim_(x->0) ((f(x)+1)x^2)/(x - sin x) = 2$, 则曲线 $y=f(x)$ 在 $(0,f(0))$ 的切线方程为:
+
+解: $f(0)=-1, (f'(0))/(-1/6)=2 -> f'(0) = -12$, $therefore -> y+1 = -12 x$
+
+3. 设 $f(x)$ 在 $[a,b]$ 可导, 在 $x=a$ 取最小值, 在 $x=b$ 取最大值, 则: #underline[($f'_+(a) >= 0, f'_-(b)>=0$)]
+
+4. 设函数 $f(x)=(x^2+a)e^x$, 若 $f(x)$ 既没有极值点也没有拐点, 则 $a$ 的取值范围: #underline[($[1,+infinity)$)]
+
+解: $f'(x) = (x^2 + 2x + a)e^x -> a>=1$
+
+5. 使得 $ln x <= a sqrt(x)$ 恒成立的最小整数 $a$ 为: #underline[1]
+
+解: $f' = 1/x - a/(2 sqrt(x)) -> x_0 = sqrt(2/a)$, $ln(sqrt(2/a)) - sqrt(2a) < 0$
+
