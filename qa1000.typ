@@ -6,7 +6,7 @@
 #show math.equation: set block(breakable: true)
 #set underline(stroke: 1pt, offset: 0.3em)
 
-#heading(level: 1,outlined: false, numbering: none)[目录]
+#heading(level: 1, outlined: false, numbering: none)[目录]
 #outline(title: none)
 
 = 主要概念,符号约定,定理,公式
@@ -16,6 +16,7 @@
 == 一元函数的微分,积分
 - 第一类间断点: 左右极限都存在, 分为可去间断点和跳跃间断点
 - 隐函数定理: $(dif y)/(dif x) = - (phi_x)/(phi_y)$
+- 常见微分: $tan' = (sin/cos)' = (cos dot cos - sin dot (- sin))/(cos^2) = sec^2$
 == 多元函数的微分
 == 二元函数/三元函数的积分
 == 无穷级数
@@ -326,3 +327,40 @@ $
 
 解: $f' = 1/x - a/(2 sqrt(x)) -> x_0 = sqrt(2/a)$, $ln(sqrt(2/a)) - sqrt(2a) < 0$
 
+== 一元函数的微分学-中值定理和微分不等式
+1. 设 $f(x)$ 在 $(0,+infinity)$ 可导, 则:
+  - (a) 若 $lim_(x->infinity) f(x)$ 存在, 则 $lim_(x->infinity) f'(x)$ 存在: 错, $1/x sin (e^x)$
+  - (b) 若 $lim_(x->infinity) f'(x)$ 存在, 则 $lim_(x->infinity) f(x)$ 存在: 错
+  - (c) 若 $lim_(x->infinity) f'(x) = a != 0$, 则 $f(x)$ 在 $x->+infinity$ 时无界: 对
+  - (d) 若 $lim_(x->infinity) f'(x) = 0$, 则 $f(x)$ 在 $x->+infinity$ 时有界: 错, $ln x$
+
+2. 设 $f(x)$ 在 $(0,+infinity)$ 可导, 则:
+  - (1) 若 $lim_(x->+infinity) f(x)$ 存在, $lim_(x->+infinity) f'(x)$ 存在, 则 $lim_(x->+infinity) f'(x) = 0$: 对
+  - (2) 若 $lim_(x->+infinity) f(x) + f'(x)$ 存在, 则 $lim_(x->+infinity) f'(x) = 0$: ?
+解析: #text(fill: red)[问题(2)不易证明].
+$
+  f'(x) + f(x) = g(x) quad g(x) -> L\
+  f(x) = e^(-x)(C + integral_0^x e^t g(t) dif t)\
+  f(x) - L = e^(-x) (C + integral_0^x e^t (g(t)-L) dif t)\
+$
+由极限的定义, 对任意 $delta>0$
+$
+  exists N>0 space "s.t." space |g(t)-L|<delta\
+  "let" space x>N,\
+  |f(x)-L| = | e^(-x) (C + integral_0^N e^t (g(t)-L) dif t) + e^(-x) integral_N^x e^t (g(t) - L) dif t |\
+  <= e^(-x) |C| + e^(-x) (e^N - 1) M + (1 - e^(N-x)) delta quad (M= |max g(x) - L|)
+$
+固定 $N, delta$, 令 $x->infinity$, 从而 $lim_(x->infinity) |f(x)-L| <= delta$, 再令 $delta->0$, $lim_(x->infinity) |f(x) - L| = 0$.
+
+3. 设 $f(x)$ 在 $[0,1]$ 可导, $f(0)=0,f(1)=1$, 且 $f(x)$ 不恒等于 $x$, 证明: 存在 $epsilon in (0,1)$, 使得 $f'(epsilon) > 1$;
+反证法, 若 $f'(x) <=1 thin space forall x in (0,1)$, 则 $1 = f(1) = f(0) + integral_0^1 f'(x) dif x <= 0+1$, 等式当且仅当 $f'(x) = 1 space forall x in (0,1)$ 时成立, 与题设矛盾, 得证.
+
+4. 设函数 $f(x)$ 在 $[0,+infinity)$ 可导:
+  - (1) 若 $f(0) = lim_(x->infinity) f(x) = 0$, 求证: 存在 $epsilon in (0,+infinity)$, 使得 $f'(epsilon) = 0$
+  - (2) 若 $0 <= f(x) <= ln (2x+1)/(x+sqrt(1+x^2))$, 求证: 存在 $epsilon in (0,+infinity)$, 使得 $ f'(epsilon) = 2/(2epsilon + 1) - 1/sqrt(1+epsilon^2) $
+
+  证: (1) #text(fill: red)[广义中值定理不在正文中, 另需证明]: 任取 $x_0 >0$, 若 $f(x_0)=0$, 由中值定理即得; 若 $f(x_0)!=0$, 不妨 $f(x_0)>0$, 由极限的定义 $exists x_1 thin "s.t." thin |f(x)| < f(x_0) space forall x > x_1$, 进一步 $exists epsilon_1 in (0, x_0) thin "s.t." thin f'(epsilon_1) > 0, thin exists epsilon_2 in (x_0, x_1) thin "s.t." thin f'(epsilon_2) < 0 thin (x_0 < x_1)$, $therefore thin exists epsilon_3 in (epsilon_1, epsilon_2) thin "s.t." f'(epsilon_3) = 0$.
+
+5. 设正值函数 $f(x)$ 二阶可导且 $ (f'(x))^2 >= f(x) f''(x) $ $f(x)-x$ 在 $x=0$ 取得极值 $1$, 证明 $f(x) <= e^x$.
+
+证明: 考察要点类似微分方程变形能力; 注意到 $(f/f')' = (f'^2 - f f'')/(f'^2) = 1 - (f f'')/(f'^2) <0$
