@@ -17,6 +17,20 @@
 - 第一类间断点: 左右极限都存在, 分为可去间断点和跳跃间断点
 - 隐函数定理: $(dif y)/(dif x) = - (phi_x)/(phi_y)$
 - 常见微分: $tan' = (sin/cos)' = (cos dot cos - sin dot (- sin))/(cos^2) = sec^2$
+- 常见积分:
+  $
+    integral 1/(x^2 + a^2) dif x &= 1/a arctan x/a +C quad ("order of" 1/a "from" 1-2)\
+    integral 1/(x^2 - a^2) dif x &= 1/(2 a) ln abs((x-a)/(x+a)) +C\
+    integral 1/(a x^2 + b x + c) dif x
+    &= 1/a integral 1/((x+b/(2a))^2 + c/a - (b^2)/(4 a^2)) dif x quad (Delta = b^2 - 4 a c, a!=0)\
+    &= cases(
+      1/(2 sqrt(a Delta)) ln abs((2a x + b - 2 sqrt(a Delta))/(2 a x + b + 2 sqrt(a Delta))) +C & quad a Delta > 0,
+      1/(sqrt(-a Delta)) arctan (2 a x + b)/(2 sqrt(-a Delta)) +C & quad a Delta <0,
+      - 1/(a x + 1/2 b) & quad Delta = 0
+    )\
+    integral arctan x dif x &= x arctan x - integral x/(x^2 + 1) dif x = x arctan x - 1/2 ln abs(x^2 +1) +C
+  $
+
 == 多元函数的微分
 == 二元函数/三元函数的积分
 == 无穷级数
@@ -364,3 +378,205 @@ $
 5. 设正值函数 $f(x)$ 二阶可导且 $ (f'(x))^2 >= f(x) f''(x) $ $f(x)-x$ 在 $x=0$ 取得极值 $1$, 证明 $f(x) <= e^x$.
 
 证明: 考察要点类似微分方程变形能力; 注意到 $(f/f')' = (f'^2 - f f'')/(f'^2) = 1 - (f f'')/(f'^2) <0$
+
+6. 设 $f(x)$ 在 $(-infinity,+infinity)$ 二阶可导, $f''(x) >= 0$, 证明:
+  - $f(x) >= f(x_0) + f'(x_0) (x-x_0) space forall x, x_0$
+  - 若存在 $M>0$, 使 $|f(x)|<M space forall x$, 则 $f(x)$ 为常值函数
+证: (1)
+$
+  f(x) & = f(x_0) + integral_(x_0)^(x) f'(x) dif x \
+       & <= cases(
+           f(x_0) + integral_(x_0)^x f'(x_0) dif x quad x>=x_0,
+           f(x_0) - integral_(x)^(x_0) f'(x_0) dif x quad x<x_0
+         )
+$
+
+(2) $f'(x_0)<=0 space forall x_0$ 否则 $lim_(x->+infinity) f(x) >= lim_(x->+infinity) f(x_0) + f'(x_0) (x-x_0) =+infinity$, 同理 $f'(x_0)>= 0 space forall x_0$
+
+19. 设 $e<a<b$, 证明 $ a^2 < a b (ln a)/(ln b) < b^2 $
+证: 左侧即 $a/(ln a) < b/(ln b)$, 即需要证 $f(x) = x/(ln x) space (x>e)$ 递增, 略
+
+== 一元函数的微分学-物理应用
+1. 质点P沿抛物线 $x=y^2$ 移动, P的横坐标变化速度 $v_x = 5 "m/s"$, 当 $x=9$ 时, P到原点 O 的距离变化速度为 $sqrt(((dif x)/(dif t))^2 + ((dif y)/(dif t))^2) = v_x sqrt(1 + ((partial y)/(partial x))^2) = 5 sqrt(1+ (1/(2 y))^2) space (y=3) = 5/6 sqrt(37)$
+
+2. 球的半径以 $5 "m/s"$ 速度均匀增长, 当 $r = 50 "m"$ 时, 表面积和体积的增长速度? $V = (4 pi)/3 r^3, (dif V)/(dif t) = 4 pi r^2 (dif r)/(dif t)=5 times 10^4 pi space "m"^3"/s"$, $(dif S)/(dif t) = 8 pi r (dif r)/(dif t) = 2 times 10^3 pi space "m"^2"/s"$
+
+3. 已知曲线 $L:space y = ln(sqrt(x)) quad (2<=x<=4)$, 在 $L$ 上做任意点 $P(x,y)$ 的切线, 切线与曲线在 $2<=x<=4$ 围成的面积为 $S$.
+  - 求一点 $P$ 使 $S$ 变化率为零
+
+解: $(dif y)/(dif x)|_(x=x_0) = 1/(2 x_0)$, $L: space y = 1/(2 x_0) (x - x_0) + 1/2 ln x_0 >= 1/2 ln x$,
+$ S(x_0) = integral_2^4 1/(2 x_0) x - 1/2 + 1/2 ln x_0 - 1/2 ln x dif x $
+$
+  (dif S)/(dif x_0) = integral_2^4 - 1/(2 x_0^2) x + 1/2 1/(x_0) dif x = - (16 - 4)/(4 x_0^2) + 1/(x_0) = 1/x_0 - 3/x_0^2
+$
+$ -> x_0 = 3 $
+
+== 一元积分学
+
+1. $
+    lim_(n->infinity) sum_(i=1)^n (1 - cos pi/sqrt(n))/(1+ cos (i pi)/(2 n))
+    &= lim_(n->infinity) 1/2 (pi^2)/n sum_(i=0)^n 1/(1 + cos pi/2 i/n)\
+    &= (pi^2)/2 integral_0^1 1/(1 + cos pi/2 x) dif x\
+    &= pi integral_0^(pi/2) 1/(1+ cos x) dif x\
+    &= pi integral_0^1 (1+t^2)/(2) 2/(t^2+1) dif t\
+    & = pi
+  $
+
+主要结论: $t = tan x/2, cos x = (1-t^2)/(1+t^2), dif x = 2/(t^2+1)$, $integral 1/(1+cos x) dif x = tan x/2 + C$
+
+2. 设 $f(x)$ 连续, 则
+$
+  lim_(n->infinity) sum_(i=0)^n (i - 1/2 + n)/n^2 f((2 i - 1)/(2n))
+  &= lim_(n->infinity) sum_(i=0)^n 1/n (i-1/2 +n)/n f(i/n - 1/(2 n))\
+  &=integral_0^1 (x+1) f(x) dif x
+$
+
+3. 设 $f(x)$ 在 $(0,1)$ 上可积, 则
+$
+  lim_(n->infinity) sum_(i=0)^n ln (1 + 1/n f(i/n))
+  &= lim_(n->infinity) sum_(i=0)^n 1/n f(i/n) = integral_0^1 f(x) dif x
+$
+
+4. 比较大小
+$
+  I_1 = integral_0^(2 pi) (sin x)/x dif x, I_2 = integral_0^(2 pi) (sin x)/(2 pi - x) dif x, I_3 = integral_0^(2 pi) (sin x)/(x (2 pi - x)) dif x
+$
+$I_2 < 0=I_3 < I_1$
+
+5. 比较大小
+$ I_1 = integral_0^(sqrt(2 pi)) sin (x^2) dif x, I_2 = integral_(- pi/4)^(pi/4) 1/ (1+sin x) dif x $
+
+计算 $integral 1/(1+sin x) dif x = -2 / (tan x/2 + 1) + C$, 也可以 $integral 1/(1+sin x) dif x = integral (1- sin x)/(cos^2 x) dif x= integral sec^2 x - sec x tan x dif x = tan x - sec x +C$
+
+6. 设 $f(x)$ 在 $[0,1]$ 连续, $integral_0^1 2 x^2 f(x) dif x>= integral_0^1 f^2 (x) dif x + 1/5$, 则 $f(x)=?$
+
+考察各分量, 设 $f(x)= x^k$, $2/(k+3) >= 1/(2 k + 1) + 1/5 -> 20 k + 10 >= 5k + 15 + 2 k^2 +7 k + 3 -> 0>= 2 k^2 -8 k + 8 -> k=2$,
+进一步做差 $g(x) = f(x) - x^2$
+$ integral_0^1 2x^2 g(x) >= integral_0^1 2x^2 g(x) + g^2(x) dif x -> g(x) = 0 $
+
+7. 设 $f(x) =integral_0^(|sin x|) e^t^2 dif t, g(x) = integral_0^(|x|) sin (t^2) dif t$, 则在 $(-pi,pi)$:
+  - $f(x)$ 是可导的奇函数
+  - $g(x)$ 是可导的偶函数 ✓
+  - $f(x)$ 是奇函数且 $f'(0)$ 不存在 ✓
+  - $g(x)$ 是偶函数且 $g'(0)$ 不存在
+分析: $f(x) approx |sin x|, g(x) approx 1/3 |x|^3$
+
+8. $f(x) = 3 x - sqrt(1-x^2) integral_0^1 f^2 (t) dif t$
+$f(x) = 3x - C sqrt(1-x^2)$, $C = integral_0^1 f^2(x) dif x = integral_0^1 9 x^2 + C/(1+x^2) dif x = 3 + pi/4 C$, $therefore C = 12/(4 - pi)$
+
+9. 分析敛散性 $integral_0^n sqrt(x) floor(m/x) dif x$ #underline[只与 $n$ 有关]
+
+10. 设 $p,q$ 为正常数, $ integral_0^1 1/(x^p abs(ln x)^q) dif x $ 收敛点条件: $p<1, q<1$
+
+== 一元函数积分的计算
+
+1. $integral_0^1 ln 1/(1-x) dif x = - integral_0^1 ln (1-x) dif x = (1-x) ln (1-x) + integral_0^1 1 dif x = 1$
+
+2.
+$
+  integral (x+2)/((2 x+ 1)(x^2 + x+1)) dif x &= integral 2/(2x+1) - x/(x^2+x+1) dif x \
+  &= ln |x+1/2| + C + integral (t- 1/2)/(t^2 + 3/4) dif t quad (t=x+1/2)\
+  &=ln |x + 1/2| + 1/2 ln |t^2 + 3/4| - 1/2 sqrt(4/3) arctan ( x dot sqrt(4/3))+C
+$
+
+知识点: 有理分式, $1/(a x^2 + b x + c)$ 形式的积分
+
+3.
+$
+  integral_0^e cos (ln x) dif x & = (x cos(ln x))|_0^e - integral_0^e x dot 1/x (-sin (ln x)) dif x \
+                                & = e cos 1 + integral_0^e sin (ln x) dif x \
+  integral_0^e sin (ln x) dif x & = (x sin (ln x))_0^e - integral_0^e x dot 1/x dot cos (ln)x dif x \
+                                & =e sin 1 - integral_0^e cos (ln x) dif x
+$
+故 $integral_0^e cos (ln x) dif x = 1/2 e (sin 1+ cos 1)$
+
+4. 设函数 $f(x)$ 满足方程 $x f(x) + f(1-x) = x^2$, 求 $integral f(x) dif x$
+$therefore (1-x) f(1-x) + f(x) = (1-x)^2, therefore [x(1-x) - 1] f(x) = x^2 (1-x) - (1-x)^2$,
+$therefore f(x) = ((2 x-1) dot 1 dot (1-x))/((-x^2 + x - 1)) = (2 x^2 - 3 x +1)/(x^2 - x + 1)$,
+$therefore f(x) = 2 + (-x - 1)/(x^2 - x + 1)$.
+
+$
+  integral f(x) dif x & = 2x + integral (-t - 3/2)/(t^2 + 3/4) dif t quad (t=x-1/2) \
+                      & =2 x - 1/2 ln abs(t^2 + 3/4) - 3/2 sqrt(4/3) arctan (x dot sqrt(4/3))+C
+$
+
+5.
+$
+  sum_(n=1)^infinity integral_n^(n+1) 2^(-sqrt(x)) dif x
+  &= integral_1^infinity 2^(-sqrt(x)) dif x\
+  &= integral_1^infinity 2^(-t) dot 2 t dif t quad (x=t^2)\
+  &= 2 integral_1^infinity e^(- ln 2 space t) t dif t\
+  &= 2 dot (-1/(ln 2) thin t thin 2^(-t) + 1/(ln 2)^2 2^(-t))_1^infinity\
+  &= (2 (1 - ln 2))/(ln 2)^2
+$
+
+6. 已知 $f(x)$ 是连续的偶函数, 且 $integral_0^1 f(x) dif x = 2$, 则 $ integral_0^2 x f(1-x) dif x & = integral_0^1 x f(1-x) dif x + integral_1^2 x f(x-1) dif x \
+                              & = integral_0^1 (1-t) f(t) dif t + integral_0^1 (t+1) f(t) dif t \
+                              & = 2 dot 2 = 4 $
+
+7. 已知 $f(x)$ 连续, $f(x^2+1) - f(x^2) = x space (x>0)$, $integral_0^1 f(x) dif x =1$, 则
+$ integral_0^2 f(x) dif x & = 1+ integral_0^1 f(t) + sqrt(t) dif t & = 2 + 2/3 = 8/3 $
+
+8. 设 $f(t)=integral_0^1 t |t-x| dif x$ 求 $integral_(-1)^2 f(t) dif t$
+$
+  integral_(-1)^2 f(t) dif t &= integral_0^1 integral_x^2 t(t-x) dif t dif x + integral_0^1 integral_(-1)^x t (x-t) dif t dif x\
+  &= integral_0^1 1/3 t^3|_x^2 - 1/2 t^2|_x^2 x - 1/3 t^3|_(-1)^x + 1/2 t^2|_(-1)^x x dif x\
+  &=integral_0^1 8/3 - 1/3 - 2/3 x^3 -2 + 1/2 + x^2 dif x\
+  &= 7/3 - 3/2 - 1/6 + 1 = 5/3
+$
+
+9. 设 $f(x)$ 是以2为周期的连续函数, $integral_0^2 f(x) dif x =1$, $g(x)$ 是过 $(-1/2,0)$ 和 $(0,1)$ 的直线, 则
+$
+  integral_0^2 f(g(x)) dif x & = integral_0^2 f(2 x+1) dif x quad (g(x) = 2 x + 1) \
+                             & = 1/2 integral_1^5 f(t) dif t = 1
+$
+
+10. 已知 $f'(x) = arctan (x-1)^2$, $f(0)=0$ 则
+$
+  integral_0^1 f(x) dif x & =integral_0^1 integral_0^x arctan (t-1)^2 dif t dif x \
+                          & = integral_0^1 integral_t^1 arctan (t-1)^2 dif x dif t \
+                          & = integral_0^1 (1-t) arctan (1-t)^2 dif t \
+                          & =1/2 integral_0^1 arctan u dif u quad (u=(1-t)^2) \
+                          & = 1/2 (u arctan u - 1/2 ln (u^2 +1))_0^1 \
+                          & =1/2 (pi/4 - 1/2 ln 2) = pi/8 - 1/4 ln 2
+$
+
+== 一元函数积分学-几何应用
+1. 曲线 $e^y + x y + x^3 = e$ 在点 $(0,1)$ 的切线与坐标轴围成的三角形面积为:
+
+解: $(dif y)/(dif x) = - phi_x/phi_y = (y+ 3 x^2)/(e^y + x) = 1/e -> S = e/2$
+
+== 一元函数积分学-不等式
+1. 设 $f(x)$ 在 $[0,1]$ 可导, 当 $0<=x<=1$ 时, $f'(x) + f^2 (x) >=0, f(0)>0$, 则:
+分析: 特征 $y' + y^2=0, -1/y^2 dif y = 1 dif x, y = 1/(x+C)$.
+能保证恒正.?
+$f >= - f'/f, integral_0^1 f(x) dif x >= ln (f(0))/(f(1))$
+
+2. 设函数 $f(x)$ 在 $[0,1]$ 连续, 证明:
+$ integral_0^1 integral_(x^2)^(sqrt(x)) f(t) dif t dif x = integral_0^1 (sqrt(x) - x^2) f(x) dif x $
+由 $sqrt(x), x^2$ 显然.
+(如何利用分布积分法证明?)
+
+3. 设 $f(x)$ 在 $[0,1]$ 可导, $f(0)=f(1) = 1$, $|f'(x)| <=1$, 则 $integral_0^1 f(x) dif x$ 的取值范围?
+$5/4, 3/4$, 存在性, 必要性, 显然.
+
+4. 证明:
+$
+    & integral_0^1 integral_(x)^(sqrt(x)) (sin t)/t dif t dif x = 1 - sin 1 \
+  = & integral_0^1 integral_(t^2)^t (sin t)/t dif x dif t = integral_0^1 sin t - t sin t dif t \
+  = & (-cos t)|_0^1 + (t cos t - sin t)|_0^1 \
+  = & -cos 1 + 1 + cos 1 - sin 1
+$
+
+5. 设函数 $f(x), g(x)$ 在 $[a,b]$ 连续, 满足 $integral_a^x g(t) dif t <=integral_a^x f(t)
+  dif t$, 且 $integral_a^b g(t) dif t = integral_a^b f(t) dif t$. 证明
+$ integral_a^b x f(x) dif x <= integral_a^b x g(x) dif x $
+证: 记 $u(x) = integral_a^x f(t) dif t$, $v(x) = integral_a^x g(t) dif t$,
+由题 $u(b)=v(b), u(x)<=v(x) space forall x in [a,b]$, $u(a) = v(a) = 0$; 故
+$"L.H.S" = integral_a^b x dif u(x) = x u(x) |_a^b - integral_a^b u(x) dif x
+= u(b) - integral_a^b u(x) dif x <= v(b) - integral_a^b v(x) dif x = x v(x)|_a^b
+- integral_a^b v(x) dif x = integral_a^b x dif v(x) = "R.H.S"$
+
+== 一元函数积分-物理应用
+
+== 多元函数微分学
