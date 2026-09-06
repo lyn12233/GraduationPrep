@@ -5,6 +5,8 @@
 #show math.equation: set text(font: ("New Computer Modern Math", "SimSun"))
 #show math.equation: set block(breakable: true)
 #set underline(stroke: 1pt, offset: 0.3em)
+#set box(stroke: (bottom: 1pt), baseline: 0pt, inset: (bottom: 5pt))
+#show outline: set box(stroke: none, inset: 0pt)
 
 #heading(level: 1, outlined: false, numbering: none)[目录]
 #outline(title: none)
@@ -13,6 +15,7 @@
 == 极限和连续性
 - #text(fill: red)[极限求解的书写规范: 乘除法中同阶无穷小可替换,加减法中不行]
 - 导数极限定理: (成立条件: 原函数连续可导)
+- 高阶/低阶/同阶/等价无穷小; 无穷小表示和极限表示的等价性;
 == 一元函数的微分,积分
 - 第一类间断点: 左右极限都存在, 分为可去间断点和跳跃间断点
 - 隐函数定理: $(dif y)/(dif x) = - (phi_x)/(phi_y)$
@@ -30,8 +33,19 @@
     )\
     integral arctan x dif x &= x arctan x - integral x/(x^2 + 1) dif x = x arctan x - 1/2 ln abs(x^2 +1) +C
   $
-
+- 中值定理和不等式
+- Jensen Inequality (and deduction): 在 $[a,b]$ 下凸的函数 $f(lambda a + (1-lambda) b) <= lambda f(a) + (1-lambda) f(b)$
+  可以推出: 在连续区间上下凸函数极大值/上凸函数极小值在边界取得.
+  #text(fill: red)[这只是推论], 参考 @jensen_ineq_example_1 中的38问
 == 多元函数的微分
+- 二元函数连续, 可导(偏导数存在), 可微的定义 $ Delta z = f'_x|_(x_0) Delta x + f'_y|_(y_0) Delta y
+  + o(sqrt((Delta x)^2 + (Delta y)^2)) $
+  关系: 可微->连续,
+  可微->可导, 可导+偏导数连续->可微; 反之均不成立?
+- 多元函数极限 $lim_((x,y)->(x_0,y_0))$ 的含义: 在去心领域内均成立, 包含从任意方向上趋近成立;
+- Schwarz Theorem: 二阶混合偏导对称的必要条件:
+  在某点二阶混合偏导均存在且其中一个连续
+- 偏微分方程的解法: (1) 一阶齐次化为常微分方程(特征线法);
 == 二元函数/三元函数的积分
 == 无穷级数
 == 微分方程
@@ -579,4 +593,75 @@ $"L.H.S" = integral_a^b x dif u(x) = x u(x) |_a^b - integral_a^b u(x) dif x
 
 == 一元函数积分-物理应用
 
-== 多元函数微分学
+== 多元函数微分学 <jensen_ineq_example_1>
+
+1. 设 $f(x)= |x| + y |y|$,
+  则: #box[C. $f'_x(0,0)$ 不存在, $f'_y(0,0)$ 存在]
+
+2. 设 $f(x,y)$ 具有一阶偏导数, $partial_x f >0$,
+  $partial_y <0$, 则 #box[$f(0,1) < f(1,0)$]
+
+3. 已知 $F(a,b) = integral_0^(pi/2) (a sin x - sin^2 x + b)^2 cos x dif x$,
+  使 $F(a,b)$ 最小则 $(a,b)$ = #box[$(pi/4, pi^2/24)$]
+$partial_a F(a,b) = integral_0^(pi/2) 2 (a sin x - sin^2 x + b) sin x cos x dif x
+= 2/3 a (pi/2)^3 - 1/2 (pi/2)^4 + b (pi/2)^2$,
+$partial_b F(a,b) = integral_0^(pi/2) 2 (a sin x - sin^2 x + b) cos x dif x = a (pi/2)^2 - 2/3 (pi/2)^3 + b (pi/2)$,
+$2/3 A + B = 1/2, A +B = 2/3$, $A=1/2, B=1/6$, $a = pi/4, b= pi^2/24$
+
+4. 若 $f(x,y)$ 在 $(0,0)$ 邻域内有定义, $f(0,0)=0$,
+  $lim_((x,y)->(0,0)) (f(x,y) - sqrt(x^2 + y^2))/sqrt(x^2 + y^2) = a$,
+  - 讨论 $f(x,y)$ 在 $(0,0)$ 的连续性
+  - $a$ 为何值时可微, 求 $dif f|_(0,0)$
+解: (1) $lim_((x,y)->(0,0)) (f(x,y)-f(0,0)) = lim (f(x,y))/(sqrt(x^2 + y^2)) dot
+lim sqrt(x^2 + y^2) = (a+1) dot 0 = 0$,\
+对任意 $a$ 在 $(0,0)$ 连续;
+(2) a=-1
+
+5. 设函数 $u(x,y)$ 的全微分 $dif u = (e^x + f'(x)) y dif x + f'(x) dif y$, 其中 $f(x)$ 在 $$ 内具有二阶连续导数,
+  $f(0)=4$, $f'(0)=3$, 求 $dif f|_((0,0))$
+解: $f''_(x y), f''_(y x)$ 均在 $(0,0)$ 存在且连续(Schwarz),
+$e^x + f'(x) = f''(x)$, $f'(x) = C e^x + x e^x = 3 e^x + x e^x$,
+$f(x) = (x+2)e^x + C = (x+2) e^x + 2$
+
+6. 已知 $f(u)$ 在 $(0,+infinity)$ 有二阶连续导数,
+  且 $z = f(y/x)$ 满足 $partial_x^2 z + partial_y^2 z = 0$, 求 $f(u)$;
+  解: $partial_x z = -y/x^2 f', partial^2_x z = (2y)/x^3 f' + y^2/x^4 f''$,
+$partial_y z = 1/x f', partial_y^2 z = 1/x^2 f''$,
+$therefore 2u f' + u^2 f'' + f'' = 0$,
+$f'(u) = C exp(-ln(u^2 + 1)) = C/(u^2+1)$, $f(u) = C arctan u + C'$,
+其中 $C, C'$ 为任意常数
+
+36. 设 $D={(x,y)| x+ y<=3, x>=0, y>=0}$, 求 $f(x,y) = 2 x^3 + 2 y^3 -6x -6y +5$
+  在 $D$ 上的最大值和最小值; #box[$(-3,41)$]
+解: $f_x = 6 x^2 - 6, f_y = 6 y^2 - 6$, $f_(x x)(1,1) = 12, f_(y y)(1,1) = 12, f_(x y) = f_(y x) = 0$,
+$B^2 - 4 A C <0$ 极小值 $f(1,1)=-3$; 在 $x+y=3$ 上: $f(x,y) = 2 dot 3 dot (x^2 - x y + y^2)
+- 6 dot 3 + 5 <= 6 dot ((x+y)^2 - 0) - 13 = 41$,
+在 $x=0$, $f(x,y) = 2 y^3 - 6 y + 5 <= max (f(0,0),f(0,3)) = 41$
+
+37. $f(x,y)= 4 x^2 (x-2 y) + 16 y (x y -3)- 33x$ 在 $D={(x,y)|0<=y<=x <=3}$ 的取值范围
+$f_x = 12 x^2 - 16 x y + 16 y^2 - 33, f_y = -8 x^2 + 32 x y - 48$,
+$-x^2+ 4 x y - 6 = 0$, $35/2 x^2 - 38 x y + 16 y^2 = 0$, $x= (38 plus.minus 18)/35 y$,
+$x=8/5 y, -64/25 + 4 dot 8/5 = 96/5 -> 5/16 , y=sqrt(5)/4, x= 2/sqrt(5)$,
+; $x = 4/7 y$ 舍弃; 此时 $f(x,y) = -1 x^3 + 25/4 x^3 - 10x - 33 x = 2/sqrt(5) dot (21/4 dot 4/5 - 43) = - 388/(5 sqrt(5))$
+在 $y=0$, $f(x,y)=4 x^3 -33 x <= max(f(0,0), f(3,0)) = 3 dot (36-33) = 9$;
+在 $x=3$, $f(x,y) = 48 y^2 - (4 dot 9 dot 2 + 16 dot 3) y + 4 dot 27 - 33 dot 3
+= 48 y^2 - 120 y +9 <= max(9, 81)=81$, 在 $x=y$, $f(x,y) = 12 x^2 - 48 x - 33x
+= 12 x^2 - 81 x<=0$; 综上 $(-388/(5 sqrt(5)), 81)$
+
+38. $-2 partial_x^2 u - 3 partial_y^2 u = u^2$, 在边界 $2x^2 + 3 y^2 =4$ 上
+  $u>=0$; 证明 $u>=0$ 当 $2x^2 + 3 y^2 <= 4$
+证: 给定 $phi$ 在 $x=t cos phi, y= t sin phi$ 方向
+$(2 cos^2 phi + 3 sin^2 phi) partial_t^2 u =-u^2$,
+记 $K = 2 cos^phi + 3 sin^2 phi >=0$, 则
+$u(plus.minus sqrt(4/K)) >= 0,
+u''(t) = - 1/K u^4<0$, 从而
+$ u(t) & >= lambda u(-sqrt(4/K)) + (1-lambda) u(sqrt(4/K)) quad (0<=lambda<=1) \
+     & >= lambda M + (1-lambda) M quad (M= min {u(plus.minus sqrt(4/K))}) \
+     & =M >=0 $ 遍历 $phi in [0,2 pi], t in [plus.minus sqrt(4/K)]$
+得到 $u(x,y) >=0space forall (x,y) in D$
+
+39. $partial_u f + partial_v f = 6(u+v) - 3 u^2$ 求 $f(u,v)$
+
+40. $partial_u f + partial_v f = 6u + 6 v - 3 u^2$,
+  $f(u,0) = 3 u^2 -u^3$, 求 $f(u,v)$
+
