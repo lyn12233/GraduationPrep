@@ -7,6 +7,7 @@
 #set underline(stroke: 1pt, offset: 0.3em)
 #set box(stroke: (bottom: 1pt), baseline: 0pt, inset: (bottom: 5pt))
 #show outline: set box(stroke: none, inset: 0pt)
+#set page(numbering: "1")
 
 #heading(level: 1, outlined: false, numbering: none)[目录]
 #outline(title: none)
@@ -92,7 +93,8 @@ $
   &=lim_(x->3) - 1/2 dot (-1) dot (integral_x^3 f(s) dif s + x (-f(x))) = 0
 $
 
-7. 设 $f(x), g(x)$ 在 $x=0$ 某邻域内连续, 当 $x->0$ 时, $f(x), g(x)$ 为等价无穷小, 则当 $x->0$ 时, $integral_0^x f(t) (1-cos t) dif t$ 是 $integral_0^x t^2 g(t) dif t$ 的 #underline[(等价无穷小)]
+7. 设 $f(x), g(x)$ 在 $x=0$ 某邻域内连续, 当 $x->0$ 时, $f(x), g(x)$ 为等价无穷小,
+则当 $x->0$ 时, $integral_0^x f(t) (1-cos t) dif t$ 是 $integral_0^x t^2 g(t) dif t$ 的 #underline[(等价无穷小)]
 
 8. 设当 $x->0$ 时, $a integral_0^x^2 cos (t^2) dif t$ 与 $sin x - b ln (1+x)$ 是等价无穷小, 则 $(a,b)=?$
 
@@ -148,10 +150,11 @@ $ lim_(x->0) (x f(x) + g(x) integral_0^(2 x) cos (t^2) dif t)/(x g(x)) & = (1/2 
   - (d) $ integral_0^(sin^2 x) t e^t - t dif t ~ t^3|_(t=x^2) $
   故选(d)
 
-20. 设函数 $f(x)$ 在点 $x=0$ 的某一邻域内可导, 且 $f(0)=0, f'(0)!=0$, 求 $ lim_(x->0) (integral_0^x^2 f(t) dif t)/(x^2 integral_0^x f(t) dif t)
-  &= lim_(x->0) (2 x f(x^2))/(x^2 f(x) + 2 x integral_0^x f(t) dif t)\
-  &= lim_(x->0) (4x^2 f'(x^2) + 2f(x^2))/(x^2 f'(x) + 2x f(x) + 2x f(x) + 2 integral_0^x f(t) dif t)\
-  &= ... "(不可取)" $
+20. 设函数 $f(x)$ 在点 $x=0$ 的某一邻域内可导, 且 $f(0)=0, f'(0)!=0$,
+求 $ lim_(x->0) (integral_0^x^2 f(t) dif t)/(x^2 integral_0^x f(t) dif t)
+&= lim_(x->0) (2 x f(x^2))/(x^2 f(x) + 2 x integral_0^x f(t) dif t)\
+&= lim_(x->0) (4x^2 f'(x^2) + 2f(x^2))/(x^2 f'(x) + 2x f(x) + 2x f(x) + 2 integral_0^x f(t) dif t)\
+&= ... "(不可取)" $
 
 $
   "原式" & = lim_(x->0) (integral_0^x^2 k t + o(t) dif t)/(x^2 integral_0^x k t + o(t) dif t) \
@@ -213,7 +216,8 @@ $
                                     & = lim_(x->0) x/(arccos(cos 1 - 1)) = 0
 $
 
-8. 已知数列 ${x_n}$ 满足 $0<x_1< pi/4, x_(n+1) + tan x_n = 2 x_n$, 证明 $lim_(n->infinity) x_n$ 存在并求值, 求 $lim_(n->infinity) (1/(x_n^2) - 1/(x_n x_(n+1)))$
+8. 已知数列 ${x_n}$ 满足 $0<x_1< pi/4, x_(n+1) + tan x_n = 2 x_n$, 证明 $lim_(n->infinity) x_n$ 存在并求值,
+求 $lim_(n->infinity) (1/(x_n^2) - 1/(x_n x_(n+1)))$
 
 证明: 略 $lim_(n->infinity) x_n = 0$;
 $
@@ -387,7 +391,11 @@ $
   - (1) 若 $f(0) = lim_(x->infinity) f(x) = 0$, 求证: 存在 $epsilon in (0,+infinity)$, 使得 $f'(epsilon) = 0$
   - (2) 若 $0 <= f(x) <= ln (2x+1)/(x+sqrt(1+x^2))$, 求证: 存在 $epsilon in (0,+infinity)$, 使得 $ f'(epsilon) = 2/(2epsilon + 1) - 1/sqrt(1+epsilon^2) $
 
-  证: (1) #text(fill: red)[广义中值定理不在正文中, 另需证明]: 任取 $x_0 >0$, 若 $f(x_0)=0$, 由中值定理即得; 若 $f(x_0)!=0$, 不妨 $f(x_0)>0$, 由极限的定义 $exists x_1 thin "s.t." thin |f(x)| < f(x_0) space forall x > x_1$, 进一步 $exists epsilon_1 in (0, x_0) thin "s.t." thin f'(epsilon_1) > 0, thin exists epsilon_2 in (x_0, x_1) thin "s.t." thin f'(epsilon_2) < 0 thin (x_0 < x_1)$, $therefore thin exists epsilon_3 in (epsilon_1, epsilon_2) thin "s.t." f'(epsilon_3) = 0$.
+  证: (1) #text(fill: red)[广义中值定理不在正文中, 另需证明]: 任取 $x_0 >0$, 若 $f(x_0)=0$, 由中值定理即得;
+  若 $f(x_0)!=0$, 不妨 $f(x_0)>0$, 由极限的定义 $exists x_1 thin "s.t." thin |f(x)| < f(x_0) space forall x > x_1$,
+  进一步 $exists epsilon_1 in (0, x_0) thin "s.t." thin f'(epsilon_1) > 0, thin exists epsilon_2 in (x_0, x_1)
+  thin "s.t." thin f'(epsilon_2) < 0 thin (x_0 < x_1)$, $therefore thin exists epsilon_3 in
+  (epsilon_1, epsilon_2) thin "s.t." f'(epsilon_3) = 0$.
 
 5. 设正值函数 $f(x)$ 二阶可导且 $ (f'(x))^2 >= f(x) f''(x) $ $f(x)-x$ 在 $x=0$ 取得极值 $1$, 证明 $f(x) <= e^x$.
 
@@ -405,7 +413,8 @@ $
          )
 $
 
-(2) $f'(x_0)<=0 space forall x_0$ 否则 $lim_(x->+infinity) f(x) >= lim_(x->+infinity) f(x_0) + f'(x_0) (x-x_0) =+infinity$, 同理 $f'(x_0)>= 0 space forall x_0$
+(2) $f'(x_0)<=0 space forall x_0$ 否则 $lim_(x->+infinity) f(x) >= lim_(x->+infinity) f(x_0) + f'(x_0) (x-x_0) =+infinity$,
+同理 $f'(x_0)>= 0 space forall x_0$
 
 19. 设 $e<a<b$, 证明 $ a^2 < a b (ln a)/(ln b) < b^2 $
 证: 左侧即 $a/(ln a) < b/(ln b)$, 即需要证 $f(x) = x/(ln x) space (x>e)$ 递增, 略
@@ -664,4 +673,3 @@ $ u(t) & >= lambda u(-sqrt(4/K)) + (1-lambda) u(sqrt(4/K)) quad (0<=lambda<=1) \
 
 40. $partial_u f + partial_v f = 6u + 6 v - 3 u^2$,
   $f(u,0) = 3 u^2 -u^3$, 求 $f(u,v)$
-
