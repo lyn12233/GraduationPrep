@@ -46,10 +46,35 @@
 - 多元函数极限 $lim_((x,y)->(x_0,y_0))$ 的含义: 在去心领域内均成立, 包含从任意方向上趋近成立;
 - Schwarz Theorem: 二阶混合偏导对称的必要条件:
   在某点二阶混合偏导均存在且其中一个连续
-- 偏微分方程的解法: (1) 一阶齐次化为常微分方程(特征线法);
+- 偏微分方程的解法:
+  - 一阶齐次偏微分化为常微分方程(特征线法); 如果能找到曲线 $w(t)=f(x_i (t))$,
+    偏微分 $partial_(x_i) f (dif x_i)/(dif t)$ 化为 $(dif w)/(dif t)$;
+  - 二阶齐次偏微分方程考察系数 $B^2 - 4 A C (A u_(x x) + B u_(x y) + C u_(y y) + ...)$
 == 二元函数/三元函数的积分
 == 无穷级数
 == 微分方程
+- 微分方程的齐次性, 意味着 $y' = phi(y/x)$, 在 $y'+P(x)y=0$ 中齐次意味齐次线性: 常数项为零;
+- 微分方程求解的一般方法：
+  - 分离变量 $g(y) dif y = f(x) dif x$
+  - 对齐次方程 $(dif y)/(dif x) = phi(y/x)$, 令 $u=y/x$,
+    分离变量得 $1/(phi(u) - u) dif u = 1/x dif x$
+  - 将分式化为齐次 $(dif y)/(dif x) = (a_1 x + b_1 y + c_1)/(a_2 x + b_2 y + c_2)$,
+    令 $X = x+h, Y=y+k$ 消去 $c_1, c_2$; 若不能消去 $(dif y)/(dif x) = (a_1 x + b_1 y + c_1)/(lambda (a_1 x+ b_1 y) + c_2)$,
+    令 $v=a_1 x + b_1 y$
+  - 一阶线性微分方程的常数易变法： $(dif y)/(dif x) + P(x) y = Q(x)$ 先令 $Q(x)=0$ 得
+    $y=exp(-integral P(x) dif x)$,
+    然后据此令 $y=u exp(-integral P(x) dif x)$ 得 $u' exp(-integral P(x) dif x) = Q(x)$...
+  - 伯努利方程 $(dif y)/(dif x) + P(x) y = Q(x) y^n$ 做替换 $z=y^(-n+1)$ 即可;
+  - 高阶微分方程降阶 (1) $y^((n)) = f(x) -> p^((n-1)) = f(x)$, (2) $y''=f(x,y') -> p' = f(x,p)$,
+    (3) $y'' = f(y,y') -> p' = f(y,p')$
+  - 二阶微分方程的常数易变法： 对 $y'' + P(x) y' + Q(x) y = f$, 令 $y = y_1 v_1 + y_2 v_2$, 其中
+    $y_1, y_2$ 是对应线性齐次方程的一组无关解, 从而不妨
+    $ cases(y_1 v'_1 + y_2 v'_2 = 0, y'_1 v'_1 + y'_2 v'_2 = f) $ 从而
+    $y = C_1 y_1 + C_2 y_2 - y_1 integral 1/W y_2 f dif x + y_2 integral 1/W y_1 f dif x quad (W = det binom(y_1 y_2,y'_1 y'_2))$
+  - 常系数线性齐次微分方程通过特征方程: 例
+    $ y'' + 2 alpha y' + (alpha^2 + beta^2)y=0-> y = e^alpha Re(C_1 e^(i beta) + C_2 e^(-i beta)) $
+    $alpha$ 阻尼因子 $beta$ 相位因子; 特征方程重根时 $y=(C_1 + C_2 x) e^(alpha x)$
+  - 特殊情况的常系数一般线性微分方程: (1) $f = e^(lambda x) P_m (x)$ 型...
 == 线性代数
 == 概率论
 
@@ -671,5 +696,32 @@ $ u(t) & >= lambda u(-sqrt(4/K)) + (1-lambda) u(sqrt(4/K)) quad (0<=lambda<=1) \
 
 39. $partial_u f + partial_v f = 6(u+v) - 3 u^2$ 求 $f(u,v)$
 
-40. $partial_u f + partial_v f = 6u + 6 v - 3 u^2$,
-  $f(u,0) = 3 u^2 -u^3$, 求 $f(u,v)$
+证: 特征线 $((dif u)/(dif t), (dif v)/(dif t)) = (1,1)$,
+做 $g(t, t') = f(t,t + t')$ 则
+$
+  (partial g(t,t'))/(partial t) = 6 (2 t + t') - 3 t^2\
+  g(t, t') = 6 t^2 + 6 t t' - t^3 + Phi(t')\
+  f(u,v) = 6u^2 + 6 u (v-u) - u^3 + Phi(v-u) = 6 u v -u^3 + Phi(v-u)
+$
+若附加边界条件 $f(u, 0) = 3 u^2 - u^3$ 则 $Phi(-u) = 3 u^2$,
+$f(u,v) = 3 u^2 + 3v^3 - u^3$
+
+40. $z = z(x-y, x+ 2y)$ 满足 $ 2 partial_x^2 z + partial_x partial_y z - partial_y^2 z = 1/3 z(0,v) + e^(v/3) $ 且 $z(u,0) = sin u$
+
+解: $y = 1/3(v - u), x = 1/3 (v+2u)$ 记 $w(x,y) = z(x-y, x+2y)$,
+则 $ partial_u z = 2/3 partial_x w - 1/3 partial_y w = 1/3 "R.H.S" $,
+$ partial_u partial_v z =(2/3 partial_x - 1/3 partial_y) (1/3 partial_x + 1/3 partial_y) w = 1/9 "L.H.S" $
+所以 $partial_u partial_v z = 1/3 partial_u z$,
+$partial_v z = z+ C(v)$, 带入 (1) 得 $C(v)=e^(v/3)$, 解微分方程得 $z = v e^(v/3) + C(u) e^(v/3)$,
+带入 (2) 得 $C(u) = sin u$
+
+== 二重积分
+
+1. $ lim_(n->infinity) sum_(i=1)^n sum_(j=1)^n 1/((n+i)sqrt(n^2 + j^2)) $
+$
+  & = lim_(n->infinity) sum_(i=1)^n sum_(j=1)^n 1/n^2 1/((1 + i/n) sqrt(1 + (j/n)^2)) \
+  & = integral.double_(0<=x<=1,0<=y<=1) 1/((1+x)sqrt(1+y^2)) dif x dif y \
+  & = [ln(1+x)]_0^1 [arcsin y]_0^1 = pi/2 ln 2
+$
+
+2.
