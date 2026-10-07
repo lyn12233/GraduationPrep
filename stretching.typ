@@ -44,7 +44,7 @@ Table of Contents
 ]
 
 #b[
-  *Q* 设 $a_1 > 0, alpha >0$, 迭代公式
+  *Q* 设 $a_1 > 0, alpha >0$, 迭代公式 #h(1fr) (CMC, 2025)
   $ a_(n+1) = a_n + (n/(S_n))^alpha quad (S_n = sum_(i=1)^n a_i) $,
   设 $lim_(n->infinity) (n a_n)/(S_n)$ 收敛;
   - 证明存在 $k$ 使 $lim_(n->infinity) a_n/(n^k)$ 收敛且非零, 并求 $k$;

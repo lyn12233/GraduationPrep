@@ -19,6 +19,7 @@
 - 高阶/低阶/同阶/等价无穷小; 无穷小表示和极限表示的等价性;
 == 一元函数的微分,积分
 - 第一类间断点: 左右极限都存在, 分为可去间断点和跳跃间断点
+- 微分和积分变换: $u v = integral u dif v' + integral v dif u' + C$
 - 隐函数定理: $(dif y)/(dif x) = - (phi_x)/(phi_y)$
 - 常见微分: $tan' = (sin/cos)' = (cos dot cos - sin dot (- sin))/(cos^2) = sec^2$
 - 常见积分:
@@ -26,18 +27,19 @@
     integral 1/(x^2 + a^2) dif x &= 1/a arctan x/a +C quad ("order of" 1/a "from" 1-2)\
     integral 1/(x^2 - a^2) dif x &= 1/(2 a) ln abs((x-a)/(x+a)) +C\
     integral 1/(a x^2 + b x + c) dif x
-    &= 1/a integral 1/((x+b/(2a))^2 + c/a - (b^2)/(4 a^2)) dif x quad (Delta = b^2 - 4 a c, a!=0)\
+    &= 1/sqrt(a) integral 1/((x+b/(2a))^2 + c/a - (b^2)/(4 a^2)) dif x quad (Delta = b^2 - 4 a c, a>0)\
     &= cases(
-      1/(2 sqrt(a Delta)) ln abs((2a x + b - 2 sqrt(a Delta))/(2 a x + b + 2 sqrt(a Delta))) +C & quad a Delta > 0,
-      1/(sqrt(-a Delta)) arctan (2 a x + b)/(2 sqrt(-a Delta)) +C & quad a Delta <0,
+      1/(2 sqrt(Delta)) ln abs((2a x + b - 2 sqrt(a Delta))/(2 a x + b + 2 sqrt(a Delta))) +C & quad Delta > 0,
+      1/(sqrt(Delta)) arctan (2 a x + b)/(2 sqrt(-a Delta)) +C & quad Delta < 0,
       - 1/(a x + 1/2 b) & quad Delta = 0
     )\
     integral arctan x dif x &= x arctan x - integral x/(x^2 + 1) dif x = x arctan x - 1/2 ln abs(x^2 +1) +C
   $
-- 中值定理和不等式
+- 中值定理和不等式: 罗尔定理, 拉格朗日中值, 科西中值;
 - Jensen Inequality (and deduction): 在 $[a,b]$ 下凸的函数 $f(lambda a + (1-lambda) b) <= lambda f(a) + (1-lambda) f(b)$
   可以推出: 在连续区间上下凸函数极大值/上凸函数极小值在边界取得.
   #text(fill: red)[这只是推论], 参考 @jensen_ineq_example_1 中的38问
+- 曲率
 == 多元函数的微分
 - 二元函数连续, 可导(偏导数存在), 可微的定义 $ Delta z = f'_x|_(x_0) Delta x + f'_y|_(y_0) Delta y
   + o(sqrt((Delta x)^2 + (Delta y)^2)) $
@@ -51,6 +53,10 @@
     偏微分 $partial_(x_i) f (dif x_i)/(dif t)$ 化为 $(dif w)/(dif t)$;
   - 二阶齐次偏微分方程考察系数 $B^2 - 4 A C (A u_(x x) + B u_(x y) + C u_(y y) + ...)$
 == 二元函数/三元函数的积分
+- 梯度, 散度和旋度: 略
+- 积分元的变换: $ dif x dif y = (partial (x, y))/(partial (u,v)) dif u dif v
+  = (partial_u x partial_v y - partial_u y partial_v x) dif u dif v $
+
 == 无穷级数
 == 微分方程
 - 微分方程的齐次性, 意味着 $y' = phi(y/x)$, 在 $y'+P(x)y=0$ 中齐次意味齐次线性: 常数项为零;
@@ -70,7 +76,7 @@
   - 二阶微分方程的常数易变法： 对 $y'' + P(x) y' + Q(x) y = f$, 令 $y = y_1 v_1 + y_2 v_2$, 其中
     $y_1, y_2$ 是对应线性齐次方程的一组无关解, 从而不妨
     $ cases(y_1 v'_1 + y_2 v'_2 = 0, y'_1 v'_1 + y'_2 v'_2 = f) $ 从而
-    $y = C_1 y_1 + C_2 y_2 - y_1 integral 1/W y_2 f dif x + y_2 integral 1/W y_1 f dif x quad (W = det binom(y_1 y_2,y'_1 y'_2))$
+    $y = C_1 y_1 + C_2 y_2 - y_1 integral 1/W y_2 f dif x + y_2 integral 1/W y_1 f dif x quad (W = det binom(y_1 y_2, y'_1 y'_2))$
   - 常系数线性齐次微分方程通过特征方程: 例
     $ y'' + 2 alpha y' + (alpha^2 + beta^2)y=0-> y = e^alpha Re(C_1 e^(i beta) + C_2 e^(-i beta)) $
     $alpha$ 阻尼因子 $beta$ 相位因子; 特征方程重根时 $y=(C_1 + C_2 x) e^(alpha x)$
