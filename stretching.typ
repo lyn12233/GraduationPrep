@@ -13,7 +13,7 @@ Table of Contents
 #b[
   *Q* $arcsin x$ 的泰勒展开
 
-  *A* $ arcsin x = x + 1/6 x^2 + ... = sum_(n=0)^(infinity) ((2 n)!)/(4^n (n!)^2 (2 n + 1)) x^(2 n + 1) $
+  *A* $ arcsin x = x + 1/6 x^3 + ... = sum_(n=0)^(infinity) ((2 n)!)/(4^n (n!)^2 (2 n + 1)) x^(2 n + 1) $
   证明:
   + 利用导数 $ f'(x) = (1-x^2)^(-1/2) = sum_(n=0)^(infinity) binom(-1/2, n)(-x^2)^n $
 ]
@@ -37,9 +37,9 @@ Table of Contents
 ]
 
 #b[
-  *Q* prove that $ sum_(n=0)^infinity sum_(k=0)^infinity ((-1)^(sqrt(n)))/(n^2+k^2) $ converges.
+  *Q* prove that $ sum_(n=1)^infinity sum_(k=1)^infinity ((-1)^(floor(sqrt(n))))/(n^2+k^2) $ converges.
 
-  *A* 考虑特征 $integral.double 1/(x^2 + y^2) dif x dif y = pi/2 integral_0^infinity 1/r dif r$ 恰好条件不收敛? 复分析告诉我们收敛圆上条件收敛, 且恰好一点不收敛; 与之类似的一个随机变化的 "方向" 通常也会带来条件收敛;
+  思路: 考虑特征 $integral.double 1/(x^2 + y^2) dif x dif y = pi/2 integral_0^infinity 1/r dif r$ 恰好条件不收敛? 复分析告诉我们收敛圆上条件收敛, 且恰好一点不收敛; 与之类似的一个随机变化的 "方向" 通常也会带来条件收敛;
   #text(fill: red)[核心是在相同的 "方向" 上做差, 余项易证绝对收敛, 同时得到更易求解答序列]
 ]
 
@@ -64,7 +64,7 @@ Table of Contents
       a_(n+1)^(1+alpha) - a_n^(1+alpha) & = (a_(n+1) - a_n) ((1+alpha) xi^(alpha)) quad (a_n < xi < a_(n+1)) \
                                         & = (1+alpha) (xi/(a_n))^alpha x_n^alpha
     $
-    由于 $a_(n+1) - a_n < (n/(n a_1))^alpha$ 故 $xi/(a_n) -> 1$ 从而
+    由于 $a_(n+1) - a_n = ((n)/(S_n))^alpha < (n/(n a_1))^alpha -> 0$ 且 $a_n -> infinity$ 故 $xi/(a_n) -> 1$ 从而
     $k=1/(1+alpha)$ 时
     $ (a_n)/n^k = (a_(n+1)^(1+alpha) - a_n^(1+alpha))^k -> ((1+alpha) L^alpha)^(1/(1+alpha)) $收敛且非零,
     并得到 $k=1/(1+alpha)$ 是唯一的;
@@ -100,7 +100,7 @@ Table of Contents
       )
     $
     不动点 $q_* = 1 + 1/(alpha+1), space y_* = 1/(alpha+1)$
-    第二步, 由Lyapunov理论判断稳定性 (略?);
+    第三步, 由Lyapunov理论判断稳定性 (略?);
 ]
 
 = 多元函数的微积分
@@ -122,14 +122,10 @@ Table of Contents
   #h(1fr) CMC2024
 
   *A* 这道题并没有并没有给出二阶导的存在, 考察对特殊情况的处理.
+
+  方法1:
   $
-    <- lim_(Delta x -> 0) (f'(x+Delta x))^2 - (f'(x))^2 dot 1/(Delta x) <= 2M (f(x+Delta x) - f(x))dot 1/(Delta x) quad (f'(x)>0) \
-    <- f'(x) lim_(Delta x ->0) (f'(x + Delta x) - f'(x)) dot 1/(Delta x) <= M f'(x)\
-    <- lim_(Delta x->0) (f'(x+Delta x) - f'(x)) dot 1/(Delta x) <= lim_(Delta x -> 0) M(x+Delta x - x) dot 1/(Delta x) = M
-  $
-  方法2:
-  $
-    0<= f(x+Delta x) = f(x) + integral_x^(Delta x) f'(x+t) - f'(x) dif t + Delta x f'(x)\
+    0<= f(x+Delta x) = f(x) + integral_(0)^(Delta x) f'(x+t) - f'(x) dif t + Delta x f'(x)\
     -Delta x f'(x) <= f(x) + 1/2 M Delta x^2 quad (Delta x>=0)\
     |f'(x)| <= f(x)/(Delta x) + 1/2 M Delta x <= 2 sqrt(1/2 M f(x))
   $
@@ -156,7 +152,7 @@ Table of Contents
   $
 
   方法2: 利用乘积因子构造隐函数:
-  对 $M dif x + N dif u = 0$, $partial_u M != partial_x N$ 时, 应有 $partial_u (mu M) + partial_x (mu N) = 0$ 即 $mu partial_u M = mu' N + mu partial_x N$, 进而也能得到 $y'/y = P(x)$ 形式的方程;
+  对 $M dif x + N dif u = 0$, $partial_u M != partial_x N$ 时, 应有 $partial_u (mu M) - partial_x (mu N) = 0$ 即 $mu partial_u M = mu' N + mu partial_x N$, 进而也能得到 $y'/y = P(x)$ 形式的方程;
 ]
 
 #b[

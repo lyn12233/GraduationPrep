@@ -19,7 +19,7 @@
 - 高阶/低阶/同阶/等价无穷小; 无穷小表示和极限表示的等价性;
 == 一元函数的微分,积分
 - 第一类间断点: 左右极限都存在, 分为可去间断点和跳跃间断点
-- 微分和积分变换: $u v = integral u dif v' + integral v dif u' + C$
+- 微分和积分变换: $u v = integral u dif v + integral v dif u + C$
 - 隐函数定理: $(dif y)/(dif x) = - (phi_x)/(phi_y)$
 - 常见微分: $tan' = (sin/cos)' = (cos dot cos - sin dot (- sin))/(cos^2) = sec^2$
 - 常见积分:
@@ -27,9 +27,9 @@
     integral 1/(x^2 + a^2) dif x &= 1/a arctan x/a +C quad ("order of" 1/a "from" 1-2)\
     integral 1/(x^2 - a^2) dif x &= 1/(2 a) ln abs((x-a)/(x+a)) +C\
     integral 1/(a x^2 + b x + c) dif x
-    &= 1/sqrt(a) integral 1/((x+b/(2a))^2 + c/a - (b^2)/(4 a^2)) dif x quad (Delta = b^2 - 4 a c, a>0)\
+    &= 1/(a) integral 1/((x+b/(2a))^2 + c/a - (b^2)/(4 a^2)) dif x quad (Delta = b^2 - 4 a c, a>0)\
     &= cases(
-      1/(2 sqrt(Delta)) ln abs((2a x + b - 2 sqrt(a Delta))/(2 a x + b + 2 sqrt(a Delta))) +C & quad Delta > 0,
+      1/(2 sqrt(Delta)) ln abs((2a x + b - sqrt(a Delta))/(2 a x + b + sqrt(a Delta))) +C & quad Delta > 0,
       1/(sqrt(Delta)) arctan (2 a x + b)/(2 sqrt(-a Delta)) +C & quad Delta < 0,
       - 1/(a x + 1/2 b) & quad Delta = 0
     )\
@@ -43,10 +43,10 @@
 == 多元函数的微分
 - 二元函数连续, 可导(偏导数存在), 可微的定义 $ Delta z = f'_x|_(x_0) Delta x + f'_y|_(y_0) Delta y
   + o(sqrt((Delta x)^2 + (Delta y)^2)) $
-  关系: 可微->连续,
-  可微->可导, 可导+偏导数连续->可微; 反之均不成立?
+  关系: #text(fill: red)[可微 $->$ 连续,
+    可微 $->$ 可导, 可导+偏导数连续 $->$ 可微]; 反之均不成立?
 - 多元函数极限 $lim_((x,y)->(x_0,y_0))$ 的含义: 在去心领域内均成立, 包含从任意方向上趋近成立;
-- Schwarz Theorem: 二阶混合偏导对称的必要条件:
+- Schwarz Theorem: 二阶混合偏导对称的充分条件:
   在某点二阶混合偏导均存在且其中一个连续
 - 偏微分方程的解法:
   - 一阶齐次偏微分化为常微分方程(特征线法); 如果能找到曲线 $w(t)=f(x_i (t))$,
@@ -64,22 +64,23 @@
   - 分离变量 $g(y) dif y = f(x) dif x$
   - 对齐次方程 $(dif y)/(dif x) = phi(y/x)$, 令 $u=y/x$,
     分离变量得 $1/(phi(u) - u) dif u = 1/x dif x$
-  - 将分式化为齐次 $(dif y)/(dif x) = (a_1 x + b_1 y + c_1)/(a_2 x + b_2 y + c_2)$,
+  - 将分式化为齐次 $ (dif y)/(dif x) = (a_1 x + b_1 y + c_1)/(a_2 x + b_2 y + c_2) $,
     令 $X = x+h, Y=y+k$ 消去 $c_1, c_2$; 若不能消去 $(dif y)/(dif x) = (a_1 x + b_1 y + c_1)/(lambda (a_1 x+ b_1 y) + c_2)$,
     令 $v=a_1 x + b_1 y$
-  - 一阶线性微分方程的常数易变法： $(dif y)/(dif x) + P(x) y = Q(x)$ 先令 $Q(x)=0$ 得
-    $y=exp(-integral P(x) dif x)$,
-    然后据此令 $y=u exp(-integral P(x) dif x)$ 得 $u' exp(-integral P(x) dif x) = Q(x)$...
-  - 伯努利方程 $(dif y)/(dif x) + P(x) y = Q(x) y^n$ 做替换 $z=y^(-n+1)$ 即可;
-  - 高阶微分方程降阶 (1) $y^((n)) = f(x) -> p^((n-1)) = f(x)$, (2) $y''=f(x,y') -> p' = f(x,p)$,
-    (3) $y'' = f(y,y') -> p' = f(y,p')$
-  - 二阶微分方程的常数易变法： 对 $y'' + P(x) y' + Q(x) y = f$, 令 $y = y_1 v_1 + y_2 v_2$, 其中
+  - 一阶线性微分方程的常数易变法： $ (dif y)/(dif x) + P(x) y = Q(x) $ 先令 $Q(x)=0$ 得
+    $y = C exp(-integral P(x) dif x)$,
+    然后据此令 $y = u(x) exp(-integral P(x) dif x)$ 得 $ u' exp(-integral P(x) dif x) = Q(x), quad u(x) = integral (C_1) Q(x) exp(integral P(t) dif t) dif x space(+C_2) $
+  - 伯努利方程 $ (dif y)/(dif x) + P(x) y = Q(x) y^n $ 做替换 $z=y^(-n+1)$ 即可;
+  - 高阶微分方程降阶 (1) $y^((n)) = f(x) -> p^((n-1)) = f(x)$, \
+    (2) $y''=f(x,y') -> p' = f(x,p)$,\
+    (3) $y'' = f(y,y') -> p=y', y''=p (dif p)/(dif y) -> (dif p)/(dif y) = f(y,p)$
+  - *二阶微分方程的常数易变法*: 对 $y'' + P(x) y' + Q(x) y = f$, 令 $y = y_1 v_1 + y_2 v_2$, 其中
     $y_1, y_2$ 是对应线性齐次方程的一组无关解, 从而不妨
     $ cases(y_1 v'_1 + y_2 v'_2 = 0, y'_1 v'_1 + y'_2 v'_2 = f) $ 从而
     $y = C_1 y_1 + C_2 y_2 - y_1 integral 1/W y_2 f dif x + y_2 integral 1/W y_1 f dif x quad (W = det binom(y_1 y_2, y'_1 y'_2))$
   - 常系数线性齐次微分方程通过特征方程: 例
-    $ y'' + 2 alpha y' + (alpha^2 + beta^2)y=0-> y = e^alpha Re(C_1 e^(i beta) + C_2 e^(-i beta)) $
-    $alpha$ 阻尼因子 $beta$ 相位因子; 特征方程重根时 $y=(C_1 + C_2 x) e^(alpha x)$
+    $ y'' + 2 alpha y' + (alpha^2 + beta^2) y = 0 -> y = e^(-alpha x) space Re(C_1 e^(i beta x) + C_2 e^(-i beta x)) $
+    $alpha$ 相当于阻尼因子 $beta$ 相当于特征频率; 特征方程重根时 $y=(C_1 + C_2 x) e^(alpha x)$
   - 特殊情况的常系数一般线性微分方程: (1) $f = e^(lambda x) P_m (x)$ 型...
 == 线性代数
 == 概率论
@@ -125,15 +126,19 @@ $
 $
 
 7. 设 $f(x), g(x)$ 在 $x=0$ 某邻域内连续, 当 $x->0$ 时, $f(x), g(x)$ 为等价无穷小,
-则当 $x->0$ 时, $integral_0^x f(t) (1-cos t) dif t$ 是 $integral_0^x t^2 g(t) dif t$ 的 #underline[(等价无穷小)]
+则当 $x->0$ 时, $integral_0^x f(t) (1-cos t) dif t$ 是 $integral_0^x t^2 g(t) dif t$ 的 #underline[(同阶无穷小)] #text(fill: red)[x]
 
 8. 设当 $x->0$ 时, $a integral_0^x^2 cos (t^2) dif t$ 与 $sin x - b ln (1+x)$ 是等价无穷小, 则 $(a,b)=?$
 
-解 $"L.H.S" ~ a x^2, "R.H.S" ~ x + 1/6 x^3 - b (x-1/2 x^2) ~ -1/2 x^2 (b=1)$, 故 $(a,b) = (-1/2 , 1)$
+解 $"L.H.S" ~ a x^2, "R.H.S" ~ x - 1/6 x^3 - b (x-1/2 x^2) ~ -1/2 x^2 (b=1)$, 故 $(a,b) = (1/2 , 1)$ #text(fill: red)[x]
 
-9. 设当 $x->0$ 时, $integral_0^x (e^(t cos (t^2)) - e^t) dif t$ 与 $a x^b$ 是等价无穷小, 则 $(a,b)=(-1/2, 6)$
+9. 设当 $x->0$ 时, $integral_0^x (e^(t cos (t^2)) - e^t) dif t$ 与 $a x^b$ 是等价无穷小, 则 $(a,b)=(-1/12, 6)$
 
-#text(fill: red)[分析] $e^(t cos (t^2)) \/ e^t ~ e^(t(cos (t^2) - 1)) ~ e^(-1/2 t^5)$
+#text(
+  fill: red,
+)[分析] $e^(t cos (t^2)) \/ e^t ~ e^(t(cos (t^2) - 1)) ~ e^(-1/2 t^5), space integral_0^x -1/2 t^5 dif t = -x^6 / 12$ #text(
+  fill: red,
+)[x]
 
 10. 已知 $lim_(x->3) (x^3 - 3x^2 + b x^2 + x - 3 b x - 3)/(x+a) = 25$, 则 $(a,b) = (-3,5)$
 
@@ -148,17 +153,19 @@ $ lim_(x->0) (f(x))/(sin^3 x) = -1/2 $
     1/x sin x/2 quad x<0,
     x+ 1/2 quad x >= 0
   ) $ 则
-$ lim_(x->0) (x f(x) + g(x) integral_0^(2 x) cos (t^2) dif t)/(x g(x)) & = (1/2 x + 1/2 dot 2 x)/(1/2 x) = 5 $
+$ lim_(x->0) (x f(x) + g(x) integral_0^(2 x) cos (t^2) dif t)/(x g(x)) & = (1/2 x + 1/2 dot 2 x)/(1/2 x) = 3 $ #text(
+  fill: red,
+)[x]
 
 13. $f(x) = lim_(n->infinity) n^x ((1+1/n)^n - e)$ 在 $x=1$ 处 #underline[
     (左极限存在, 右极限不存在)
   ]
 
-分析 $lim_(x->0) (1+x)^(1/x) ~ e^(1/x ln (1+x)) ~ e^(1 - 1/2 x + 1/3 x^2 -...) ~ e (1 - 1/2 x + ...)$
+分析 $x->0$ 时 $(1+x)^(1/x) ~ e^(1/x ln (1+x)) ~ e^(1 - 1/2 x + 1/3 x^2 -...) ~ e (1 - 1/2 x + ...)$
 
 14. 计算 $ lim_(x->+infinity) (x^(x+1))/(1+x)^x - x/e & =
                                                lim_(x->infinity) x((x/(1+x))^x - 1/e) \
-                                             & = -1/2 quad "(根据上文的结论)" $
+                                             & = x 1/e (1 + 1/2 1/x + ... -1) = 1/(2 e) $ #text(fill: red)[x]
 
 15. $ lim_(x->0) (|x|^(x+2))/(sqrt(1+x^2) - 1) & = lim_(x->0) (x^2)/(1/2 x^2) |x|^x = 2 $
 
@@ -171,8 +178,8 @@ $ lim_(x->0) (x f(x) + g(x) integral_0^(2 x) cos (t^2) dif t)/(x g(x)) & = (1/2 
   - (d) 当 $x->0$ 时, $f(x)$ 是 $x$ 的高阶无穷小 对
 
 18. 函数 $f(x)$ 在 $x=0$ 的某邻域内有定义, 则"$lim_(x->0) (|f(x)|)/x$ 存在" 是"$lim_(x->0) (f(x))/x = 0$"的 #underline[
-    既非充分也非必要
-  ] 条件
+    充分必要
+  ] 条件 #text(fill: red)[x] 分析: $"left" -> f/x -> L, f/x -> -L -> L=0$
 
 19. 当 $x->0$ 时, 以下无穷小量阶数最高的是:
   - (a) $ integral_0^(sin x) ((1+t)^t - 1) dif t ~ x^3 $
@@ -214,11 +221,11 @@ $
             b_(n+1) & = (-cos t sin^(n+1) t)|_0^(pi/2) \
                     & + integral_0^(pi/2) cos t dot (n+1) sin^n t dot cos t dif t \
                     & = - (n+1)b_(n+1) + (n+1)b_n \
-  therefore b_(n+1) & = (n+1)/(n+2)b_n \
+  therefore b_(n+2) & = (n+1)/(n+2)b_n \
    therefore "原式" & = lim_(n->infinity) ((n+1)(n+3 - n - 1))/(n+1) = 2 \
 $
 
-实际由Wallis公式 $I_n = (n!!)/((n+1)!!) dot space "("1"或"pi/2")"$
+实际由Wallis公式 $ I_n = cases(((n-1)!!)/(n!!) quad n=2k+1, ((n-1)!!)/(n!!) pi/2 quad n=2k) $
 
 5. 设 $0<=x_1 <= sqrt(c), x_(n+1) = (c(1+x_n))/(c+x_n), c>1$, 证明数列 $x_n$ 收敛, 并求极限值;
 
@@ -232,11 +239,11 @@ $
 $
 
 6. 设 $x_1 < 0, x_(n+1) = e^(x_n) - 1$, 求 $lim_(n->infinity) (1/x_n - 1/(x_(n+1)))$
-解: 可知 $x_n < 0$, $x_(n+1) < 1+x_n - 1 = x_n$, 得 $lim_(n->infinity) x_n = 0$;
+解: 可知 $x_n < 0$, $x_(n+1) > 1+x_n - 1 = x_n$, 数列递增有上界, 收敛到0;
 $
-  "原式" & = - lim_(t->0^-) (1/(e^(1/t) - 1) - t) \
-         & = 1
-$
+  "原式" & = - lim_(t->0^-) (1/(e^t - 1) - 1/t) \
+         & = lim_(t->0^-) (t - e^t +1)/(t (e^t -1)) = 1/2
+$ #text(fill: red)[x]
 
 7. 设数列 ${x_n}$ 满足 $0< x_n < pi/2, cos x_(n+1) - x_(n+1) = cos x_n$, 证明 $lim_(n->infinity) x_n$ 存在并求值,
 并求 $lim_(n->infinity) x_(n+2)/(x_n)$
@@ -259,7 +266,7 @@ $
 $
 
 == 一元函数微分学
-1. 函数 $f(x)=(e^x -1)|x^3 - x^2 + x|$ 的不可导点个数为 #underline[2]
+1. 函数 $f(x)=(e^x -1)|x^3 - x^2 + x|$ 的不可导点个数为 #underline[0] #text(fill: red)[x]
 
 2. 设 $f(x+x_0) = alpha f(x)$ 成立, $f'(0)=beta$, $alpha, beta$ 为非零常数, 则 $x_0$ 处 #underline[($f(x)$ 可导且 $f'(x_0) = alpha beta$)]
 
@@ -278,10 +285,10 @@ $
 
 7.设 $f(0)=a>0, f'(0) = b$, 求 $ lim_(x->0) (f(x)^(f(x)) - f(0)^(f(x)))/x
 &= ((a+b x + o(x))^(a + b x + o(x)) - a^(a+ b x + o(x)))/x\
-&=( e^( ( ln a + ln (1+ b/a x + o(x)) )(a+b x+o(x)) ) - e^(ln a (a+ b x + o(x))) )/x\
-&= ( e^( ln a thin a + ln a thin b x + ln(b/a) a x + o(x) ) - e^(ln a thin a + ln a thin b x + o(x)) )/x \
-&= (e^(ln a thin a) (ln(b/a) a x + o(x)))/x\
-&=a^(a+1) ln(b/a) $
+&=( e^( ( ln a + b/a x + o(x) )(a+b x+o(x)) ) - e^(ln a (a+ b x + o(x))) )/x\
+&= ( e^( ln a thin a + ln a thin b x + b x + o(x) ) - e^(ln a thin a + ln a thin b x + o(x)) )/x \
+&= (e^(ln a thin a) (b x + o(x)))/x\
+&=a^a b $ #text(fill: red)[x]
 
 8. 已知函数 $g(x)$ 连续, 设 $f(x) = integral_0^x^2 g(x t ) dif t$, 求 $f'(x)$, 判断 $f'(x)$ 在 $x=0$ 的连续性;
 
@@ -293,9 +300,9 @@ $ f'(x) = 3x^2 g(x^3) - 1/x^2 integral_0^x^3 g(t) dif t $
 $ |f'(x)| <= |3x^2 g(x^3)| + |1/x^2 dot x^3 max_(0<t<x) g(t)| -> 0 $
 故连续
 
-9. 设函数 $f(x)$ 在 $x=a$ 邻域内可导且 $f(a)=0$, 证明 $g(x) = |f(x)|$ 在 $x=a$ 可导
+9. 设函数 $f(x)$ 在 $x=a$ 邻域内可导且 $f'(a)=0$, 证明 $g(x) = |f(x)|$ 在 $x=a$ 可导 #text(fill: red)[x]
 
-#text(fill: red)[???]
+#text(fill: red)[知识点: 可导的定义, 领域内可导的定义(?)]
 
 10. 设 $ f(x) = cases((g(x)-e^x)/x &quad x!=0, a &quad x=0) $, 其中 $g(x)$ 有二阶连续导数, $g(0)=1, g'(0)=-1$:
   - 确定 $a$ 使 $f(x)$ 在 $(-infinity,+infinity)$ 连续
@@ -325,7 +332,7 @@ $
 $ f'(x) = cases(
   x dot -1/2 x^(-3/2) x/(x+1) + arctan 1/sqrt(x) & quad x>0,
   pi/2 cos x e^(sin x) & quad x<=0
-) -> 0 quad (x->0) $ 可导且导数连续
+) -> pi/2 quad (x->0) $ 可导且导数连续 #text(fill: red)[x]
 
 13. 设 $f(x)$ 在 $x=a$ 可导, 则 $|f(x)|$ 在 $x=a$ 不可导的充要条件是: #underline[($f(a)=0, f'(a)!=0$)]
 
@@ -344,51 +351,51 @@ $
                                                & = -6 lim_(x->1) (x-1) (3 y^2 + x)/(y + 2x -2)|_(x=1,y=0) \
                                                & = -6 lim_(x->1) (x-1)/(y+2x-2) dot 1 \
                                                & = -6 lim_(x->1) (1)/(y'+2) quad (y'(1) = 0) \
-                                               & =3
-$
+                                               & = -3
+$ #text(fill: red)[x]
 
 4. 设函数 $y=y(x)$ 由方程 $arctan x/y = ln (y^2 + x^2)$ 确定, 求 $(dif y)/(dif x)$
 $
   (dif y)/(dif x) & = - (phi_x)/(phi_y) \
                   & = - (1/y 1/((x/y)^2+1) - 2x/(x^2+y^2))/(-x/y^2 1/((x/y)^2+1) - 2y/(x^2+y^2)) \
-                  & = (y-2x)/(x-2y)
+                  & = (y-2x)/(x+2y)
 $
 
 $
-  (dif^2 y)/(dif^2 x) & = ((x-2y)(y'-2) + (1-2y')(y-2x))/(x-2y)^2 \
-                      & =(-4 y y' - 3 x y' - 4 x -3 y)/(x-2y)^2 \
-                      & = (-(4y+3x)(y-2x)-(3y+4x)(-2y+x))/(x-2y)^3 \
-                      & =(2y^2 + 10 x y + 2 x^2)/((x-2y)^3)
-$
+  (dif^2 y)/(dif^2 x) & = ((x+2y)(y'-2) - (1+2y')(y-2x))/(x-2y)^2 \
+                      & =(5 x y' - 5 y)/(x-2y)^2 \
+                      & = (5x(y-2x) -5 y (2y+x))/(x-2y)^3 \
+                      & =(-10 x^2 - 10 y^2)/((x-2y)^3)
+$ #text(fill: red)[x]
 
 5. 设 $y = 2x + sin x$, 求反函数的二阶导数
 $ (dif x) / (dif y) = 1/(2+ cos x) $
 $
-  (dif^2 x)/(dif^2 y) & = - x' dot sin x 1/(2+ cos x)^2 \
-                      & = - (sin x)/(2 + cos x)^3
-$
+  (dif^2 x)/(dif^2 y) & = -sin x dot -1/(2+ cos x)^2 \
+                      & = (sin x)/(2 + cos x)^3
+$ #text(fill: red)[x]
 
 == 一元函数的微分学几何应用
 
 1. 设 $f(x) = |ln|x||$, 则:
   - $x=1$ 不是极值点: 错
-  - $x=1$ 不是拐点: 错
+  - $x=1$ 不是拐点: 对 #text(fill: red)[x 拐点的定义是凹凸性改变]
   - $x=-1$ 不是驻点: 对 #text(fill: red)[定义是导数为零]
   - $x=0$ 不是渐近线: 错
 
 2. 设 $f(x)$ 在 $x=0$ 连续, 且 $lim_(x->0) ((f(x)+1)x^2)/(x - sin x) = 2$, 则曲线 $y=f(x)$ 在 $(0,f(0))$ 的切线方程为:
 
-解: $f(0)=-1, (f'(0))/(-1/6)=2 -> f'(0) = -12$, $therefore -> y+1 = -12 x$
+解: $f(0)=-1, (f'(0))/(1/6)=2 -> f'(0) = 1/3$, $therefore -> y+1 = x/3$
 
 3. 设 $f(x)$ 在 $[a,b]$ 可导, 在 $x=a$ 取最小值, 在 $x=b$ 取最大值, 则: #underline[($f'_+(a) >= 0, f'_-(b)>=0$)]
 
-4. 设函数 $f(x)=(x^2+a)e^x$, 若 $f(x)$ 既没有极值点也没有拐点, 则 $a$ 的取值范围: #underline[($[1,+infinity)$)]
+4. 设函数 $f(x)=(x^2+a)e^x$, 若 $f(x)$ 既没有极值点也没有拐点, 则 $a$ 的取值范围: #underline[($[2,+infinity)$)]
 
-解: $f'(x) = (x^2 + 2x + a)e^x -> a>=1$
+解: $f'(x) = (x^2 + 2x + a)e^x, f'' = (x^2 + 4x + a +2)e^x -> a>=2$ #text(fill: red)[x 拐点的定义]
 
 5. 使得 $ln x <= a sqrt(x)$ 恒成立的最小整数 $a$ 为: #underline[1]
 
-解: $f' = 1/x - a/(2 sqrt(x)) -> x_0 = sqrt(2/a)$, $ln(sqrt(2/a)) - sqrt(2a) < 0$
+解: $f' = 1/x - a/(2 sqrt(x)) -> x_0 = 4/a^2$, $2 ln(2/a) - 2 < 0$ #text(fill: red)[x]
 
 == 一元函数的微分学-中值定理和微分不等式
 1. 设 $f(x)$ 在 $(0,+infinity)$ 可导, 则:
@@ -417,6 +424,9 @@ $
 
 3. 设 $f(x)$ 在 $[0,1]$ 可导, $f(0)=0,f(1)=1$, 且 $f(x)$ 不恒等于 $x$, 证明: 存在 $epsilon in (0,1)$, 使得 $f'(epsilon) > 1$;
 反证法, 若 $f'(x) <=1 thin space forall x in (0,1)$, 则 $1 = f(1) = f(0) + integral_0^1 f'(x) dif x <= 0+1$, 等式当且仅当 $f'(x) = 1 space forall x in (0,1)$ 时成立, 与题设矛盾, 得证.
+#text(
+  fill: red,
+)[x 不严谨. 可导不一定Riemann可积, 应使用Lagrange中值定理] $f(x) > x -> epsilon in (0,x), f(x) < x -> epsilon in (x,1)$
 
 4. 设函数 $f(x)$ 在 $[0,+infinity)$ 可导:
   - (1) 若 $f(0) = lim_(x->infinity) f(x) = 0$, 求证: 存在 $epsilon in (0,+infinity)$, 使得 $f'(epsilon) = 0$
@@ -430,7 +440,7 @@ $
 
 5. 设正值函数 $f(x)$ 二阶可导且 $ (f'(x))^2 >= f(x) f''(x) $ $f(x)-x$ 在 $x=0$ 取得极值 $1$, 证明 $f(x) <= e^x$.
 
-证明: 考察要点类似微分方程变形能力; 注意到 $(f/f')' = (f'^2 - f f'')/(f'^2) = 1 - (f f'')/(f'^2) <0$
+证明: 考察要点类似微分方程变形能力; 注意到 $(f/f')' = (f'^2 - f f'')/(f'^2) >= 0$ #text(fill: red)[x 不严谨] $ (f' / f)' = (f f'' - (f')^2)/(f^2) <= 0 -> (ln f)' <= 1 -> ln f(x) <= x + C quad (C=0) $
 
 6. 设 $f(x)$ 在 $(-infinity,+infinity)$ 二阶可导, $f''(x) >= 0$, 证明:
   - $f(x) >= f(x_0) + f'(x_0) (x-x_0) space forall x, x_0$
@@ -438,9 +448,9 @@ $
 证: (1)
 $
   f(x) & = f(x_0) + integral_(x_0)^(x) f'(x) dif x \
-       & <= cases(
-           f(x_0) + integral_(x_0)^x f'(x_0) dif x quad x>=x_0,
-           f(x_0) - integral_(x)^(x_0) f'(x_0) dif x quad x<x_0
+       & >= cases(
+           f(x_0) + integral_(x_0)^x f'(x_0) dif x quad (x>=x_0),
+           f(x_0) - integral_(x)^(x_0) f'(x_0) dif x quad (x<x_0)
          )
 $
 
@@ -451,7 +461,7 @@ $
 证: 左侧即 $a/(ln a) < b/(ln b)$, 即需要证 $f(x) = x/(ln x) space (x>e)$ 递增, 略
 
 == 一元函数的微分学-物理应用
-1. 质点P沿抛物线 $x=y^2$ 移动, P的横坐标变化速度 $v_x = 5 "m/s"$, 当 $x=9$ 时, P到原点 O 的距离变化速度为 $sqrt(((dif x)/(dif t))^2 + ((dif y)/(dif t))^2) = v_x sqrt(1 + ((partial y)/(partial x))^2) = 5 sqrt(1+ (1/(2 y))^2) space (y=3) = 5/6 sqrt(37)$
+1. 质点P沿抛物线 $x=y^2$ 移动, P的横坐标变化速度 $v_x = 5 "m/s"$, 当 $x=9$ 时, P到原点 O 的距离变化速度为 $sqrt(((dif x)/(dif t))^2 + ((dif y)/(dif t))^2) = v_x sqrt(1 + ((partial y)/(partial x))^2) = 5 sqrt(1+ (1/(2 y))^2) space (y=3) = 5/6 sqrt(37)$ #text(fill: red)[x 审题, 到原点距离变化速度 $(x x' + y y')/(r)=19 / 12 sqrt(10)$]
 
 2. 球的半径以 $5 "m/s"$ 速度均匀增长, 当 $r = 50 "m"$ 时, 表面积和体积的增长速度? $V = (4 pi)/3 r^3, (dif V)/(dif t) = 4 pi r^2 (dif r)/(dif t)=5 times 10^4 pi space "m"^3"/s"$, $(dif S)/(dif t) = 8 pi r (dif r)/(dif t) = 2 times 10^3 pi space "m"^2"/s"$
 
@@ -476,7 +486,7 @@ $ -> x_0 = 3 $
     & = pi
   $
 
-主要结论: $t = tan x/2, cos x = (1-t^2)/(1+t^2), dif x = 2/(t^2+1)$, $integral 1/(1+cos x) dif x = tan x/2 + C$
+主要结论: $t = tan x/2, cos x = (1-t^2)/(1+t^2), dif x = 2/(t^2+1) dif t$, $integral 1/(1+cos x) dif x = tan x/2 + C$
 
 2. 设 $f(x)$ 连续, 则
 $
@@ -499,10 +509,9 @@ $I_2 < 0=I_3 < I_1$
 
 5. 比较大小
 $ I_1 = integral_0^(sqrt(2 pi)) sin (x^2) dif x, I_2 = integral_(- pi/4)^(pi/4) 1/ (1+sin x) dif x $
+#text(fill: red)[???]
 
-计算 $integral 1/(1+sin x) dif x = -2 / (tan x/2 + 1) + C$, 也可以 $integral 1/(1+sin x) dif x = integral (1- sin x)/(cos^2 x) dif x= integral sec^2 x - sec x tan x dif x = tan x - sec x +C$
-
-6. 设 $f(x)$ 在 $[0,1]$ 连续, $integral_0^1 2 x^2 f(x) dif x>= integral_0^1 f^2 (x) dif x + 1/5$, 则 $f(x)=?$
+6. 设 $f(x)$ 在 $[0,1]$ 连续, $integral_0^1 2 x^2 f(x) dif x>= integral_0^1 f^2 (x) dif x + 1/5$, 则 $f(x)= x^2$
 
 考察各分量, 设 $f(x)= x^k$, $2/(k+3) >= 1/(2 k + 1) + 1/5 -> 20 k + 10 >= 5k + 15 + 2 k^2 +7 k + 3 -> 0>= 2 k^2 -8 k + 8 -> k=2$,
 进一步做差 $g(x) = f(x) - x^2$
@@ -511,14 +520,14 @@ $ integral_0^1 2x^2 g(x) >= integral_0^1 2x^2 g(x) + g^2(x) dif x -> g(x) = 0 $
 7. 设 $f(x) =integral_0^(|sin x|) e^t^2 dif t, g(x) = integral_0^(|x|) sin (t^2) dif t$, 则在 $(-pi,pi)$:
   - $f(x)$ 是可导的奇函数
   - $g(x)$ 是可导的偶函数 ✓
-  - $f(x)$ 是奇函数且 $f'(0)$ 不存在 ✓
+  - $f(x)$ 是奇函数且 $f'(0)$ 不存在 #text(fill: red)[x $f'(0)=0$]
   - $g(x)$ 是偶函数且 $g'(0)$ 不存在
 分析: $f(x) approx |sin x|, g(x) approx 1/3 |x|^3$
 
 8. $f(x) = 3 x - sqrt(1-x^2) integral_0^1 f^2 (t) dif t$
-$f(x) = 3x - C sqrt(1-x^2)$, $C = integral_0^1 f^2(x) dif x = integral_0^1 9 x^2 + C/(1+x^2) dif x = 3 + pi/4 C$, $therefore C = 12/(4 - pi)$
+  $f(x) = 3x - C sqrt(1-x^2)$, $C = integral_0^1 f^2(x) dif x = integral_0^1 9 x^2 + C^2 (1-x^2) dif x = 3 - 3C + 2/3 C^2$,\ $therefore C = 3 "or" 3/2$
 
-9. 分析敛散性 $integral_0^n sqrt(x) floor(m/x) dif x$ #underline[只与 $n$ 有关]
+9. 分析敛散性 $integral_0^n sqrt(x) floor(m/x) dif x$ #underline[只与 $n$ 有关] #text(fill: red)[???]
 
 10. 设 $p,q$ 为正常数, $ integral_0^1 1/(x^p abs(ln x)^q) dif x $ 收敛点条件: $p<1, q<1$
 
@@ -529,9 +538,10 @@ $f(x) = 3x - C sqrt(1-x^2)$, $C = integral_0^1 f^2(x) dif x = integral_0^1 9 x^2
 2.
 $
   integral (x+2)/((2 x+ 1)(x^2 + x+1)) dif x &= integral 2/(2x+1) - x/(x^2+x+1) dif x \
-  &= ln |x+1/2| + C + integral (t- 1/2)/(t^2 + 3/4) dif t quad (t=x+1/2)\
-  &=ln |x + 1/2| + 1/2 ln |t^2 + 3/4| - 1/2 sqrt(4/3) arctan ( x dot sqrt(4/3))+C
-$
+  &= ln |x+1/2| - integral (t- 1/2)/(t^2 + 3/4) dif t quad (t=x+1/2)\
+  &=ln |x + 1/2| - 1/2 ln |t^2 + 3/4| + 1/2 dot 2/sqrt(3) arctan ( t dot sqrt(4/3))+C \
+  &= ln |2 x + 1| - 1/2 ln |x^2 + x + 1| + 1/sqrt(3) arctan ((2 x + 1)/sqrt(3)) + C
+$ #text(fill: red)[x]
 
 知识点: 有理分式, $1/(a x^2 + b x + c)$ 形式的积分
 
@@ -546,13 +556,13 @@ $
 
 4. 设函数 $f(x)$ 满足方程 $x f(x) + f(1-x) = x^2$, 求 $integral f(x) dif x$
 $therefore (1-x) f(1-x) + f(x) = (1-x)^2, therefore [x(1-x) - 1] f(x) = x^2 (1-x) - (1-x)^2$,
-$therefore f(x) = ((2 x-1) dot 1 dot (1-x))/((-x^2 + x - 1)) = (2 x^2 - 3 x +1)/(x^2 - x + 1)$,
-$therefore f(x) = 2 + (-x - 1)/(x^2 - x + 1)$.
+$ therefore f(x) = (-x^3 + 2x + 1)/((-x^2 + x - 1))\
+therefore f(x) = x + 1 - (2 x)/(x^2 - x + 1) $.
 
 $
-  integral f(x) dif x & = 2x + integral (-t - 3/2)/(t^2 + 3/4) dif t quad (t=x-1/2) \
-                      & =2 x - 1/2 ln abs(t^2 + 3/4) - 3/2 sqrt(4/3) arctan (x dot sqrt(4/3))+C
-$
+  integral f(x) dif x & = 1/2 x^2 + x - 2 integral (x-1/2 + 1/2)/((x-1/2)^2 + 3/4) dif x \
+                      & = 1/2 x^2 + x - ln (x^2 -x +1) - 2/sqrt(3) arctan((2x-1)/sqrt(3)) + C
+$ #text(fill: red)[x]
 
 5.
 $
@@ -560,9 +570,9 @@ $
   &= integral_1^infinity 2^(-sqrt(x)) dif x\
   &= integral_1^infinity 2^(-t) dot 2 t dif t quad (x=t^2)\
   &= 2 integral_1^infinity e^(- ln 2 space t) t dif t\
-  &= 2 dot (-1/(ln 2) thin t thin 2^(-t) + 1/(ln 2)^2 2^(-t))_1^infinity\
-  &= (2 (1 - ln 2))/(ln 2)^2
-$
+  &= 2 dot (-1/(ln 2) thin t thin 2^(-t) - 1/(ln 2)^2 2^(-t))_1^infinity\
+  &= (2 (1 + ln 2))/(ln 2)^2
+$ #text(fill: red)[x]
 
 6. 已知 $f(x)$ 是连续的偶函数, 且 $integral_0^1 f(x) dif x = 2$, 则 $ integral_0^2 x f(1-x) dif x & = integral_0^1 x f(1-x) dif x + integral_1^2 x f(x-1) dif x \
                               & = integral_0^1 (1-t) f(t) dif t + integral_0^1 (t+1) f(t) dif t \
@@ -575,9 +585,9 @@ $ integral_0^2 f(x) dif x & = 1+ integral_0^1 f(t) + sqrt(t) dif t & = 2 + 2/3 =
 $
   integral_(-1)^2 f(t) dif t &= integral_0^1 integral_x^2 t(t-x) dif t dif x + integral_0^1 integral_(-1)^x t (x-t) dif t dif x\
   &= integral_0^1 1/3 t^3|_x^2 - 1/2 t^2|_x^2 x - 1/3 t^3|_(-1)^x + 1/2 t^2|_(-1)^x x dif x\
-  &=integral_0^1 8/3 - 1/3 - 2/3 x^3 -2 + 1/2 + x^2 dif x\
-  &= 7/3 - 3/2 - 1/6 + 1 = 5/3
-$
+  &=integral_0^1 8/3 - 1/3 x^3 - 2x + 1/2 x^3 - 1/3 x^3 -1/3 + 1/2 x^3 - 1/2 x dif x\
+  &= 7/3 + 1/4 (1/3) + 1/2 (-5/2) = 7/6
+$ #text(fill: red)[x]
 
 9. 设 $f(x)$ 是以2为周期的连续函数, $integral_0^2 f(x) dif x =1$, $g(x)$ 是过 $(-1/2,0)$ 和 $(0,1)$ 的直线, 则
 $
@@ -598,7 +608,7 @@ $
 == 一元函数积分学-几何应用
 1. 曲线 $e^y + x y + x^3 = e$ 在点 $(0,1)$ 的切线与坐标轴围成的三角形面积为:
 
-解: $(dif y)/(dif x) = - phi_x/phi_y = (y+ 3 x^2)/(e^y + x) = 1/e -> S = e/2$
+解: $(dif y)/(dif x) = - phi_x/phi_y = (y+ 3 x^2)/(e^y + x) = -1/e -> x_p = e, y_p = 1 -> S = e/2$ #text(fill: red)[x]
 
 == 一元函数积分学-不等式
 1. 设 $f(x)$ 在 $[0,1]$ 可导, 当 $0<=x<=1$ 时, $f'(x) + f^2 (x) >=0, f(0)>0$, 则:
@@ -608,8 +618,7 @@ $f >= - f'/f, integral_0^1 f(x) dif x >= ln (f(0))/(f(1))$
 
 2. 设函数 $f(x)$ 在 $[0,1]$ 连续, 证明:
 $ integral_0^1 integral_(x^2)^(sqrt(x)) f(t) dif t dif x = integral_0^1 (sqrt(x) - x^2) f(x) dif x $
-由 $sqrt(x), x^2$ 显然.
-(如何利用分布积分法证明?)
+视作二元积分显然;
 
 3. 设 $f(x)$ 在 $[0,1]$ 可导, $f(0)=f(1) = 1$, $|f'(x)| <=1$, 则 $integral_0^1 f(x) dif x$ 的取值范围?
 $5/4, 3/4$, 存在性, 必要性, 显然.
@@ -642,11 +651,11 @@ $"L.H.S" = integral_a^b x dif u(x) = x u(x) |_a^b - integral_a^b u(x) dif x
   $partial_y <0$, 则 #box[$f(0,1) < f(1,0)$]
 
 3. 已知 $F(a,b) = integral_0^(pi/2) (a sin x - sin^2 x + b)^2 cos x dif x$,
-  使 $F(a,b)$ 最小则 $(a,b)$ = #box[$(pi/4, pi^2/24)$]
+  使 $F(a,b)$ 最小则 $(a,b)$ = #box[$(1, -1/6)$]
 $partial_a F(a,b) = integral_0^(pi/2) 2 (a sin x - sin^2 x + b) sin x cos x dif x
 = 2/3 a (pi/2)^3 - 1/2 (pi/2)^4 + b (pi/2)^2$,
 $partial_b F(a,b) = integral_0^(pi/2) 2 (a sin x - sin^2 x + b) cos x dif x = a (pi/2)^2 - 2/3 (pi/2)^3 + b (pi/2)$,
-$2/3 A + B = 1/2, A +B = 2/3$, $A=1/2, B=1/6$, $a = pi/4, b= pi^2/24$
+$2/3 A + B = 1/2, A +B = 2/3$, $A=1/2, B=1/6$, $a = pi/4, b= pi^2/24$ #text(fill: red)[x 直接积分]
 
 4. 若 $f(x,y)$ 在 $(0,0)$ 邻域内有定义, $f(0,0)=0$,
   $lim_((x,y)->(0,0)) (f(x,y) - sqrt(x^2 + y^2))/sqrt(x^2 + y^2) = a$,
@@ -679,14 +688,15 @@ $B^2 - 4 A C <0$ 极小值 $f(1,1)=-3$; 在 $x+y=3$ 上: $f(x,y) = 2 dot 3 dot (
 在 $x=0$, $f(x,y) = 2 y^3 - 6 y + 5 <= max (f(0,0),f(0,3)) = 41$
 
 37. $f(x,y)= 4 x^2 (x-2 y) + 16 y (x y -3)- 33x$ 在 $D={(x,y)|0<=y<=x <=3}$ 的取值范围
-$f_x = 12 x^2 - 16 x y + 16 y^2 - 33, f_y = -8 x^2 + 32 x y - 48$,
-$-x^2+ 4 x y - 6 = 0$, $35/2 x^2 - 38 x y + 16 y^2 = 0$, $x= (38 plus.minus 18)/35 y$,
-$x=8/5 y, -64/25 + 4 dot 8/5 = 96/5 -> 5/16 , y=sqrt(5)/4, x= 2/sqrt(5)$,
-; $x = 4/7 y$ 舍弃; 此时 $f(x,y) = -1 x^3 + 25/4 x^3 - 10x - 33 x = 2/sqrt(5) dot (21/4 dot 4/5 - 43) = - 388/(5 sqrt(5))$
-在 $y=0$, $f(x,y)=4 x^3 -33 x <= max(f(0,0), f(3,0)) = 3 dot (36-33) = 9$;
+$ f_x = 12 x^2 - 16 x y + 16 y^2 - 33 \ f_y = -8 x^2 + 32 x y - 48 $
+$-x^2+ 4 x y - 6 = 0$, $35/2 x^2 - 38 x y + 16 y^2 = 0$, 解得 $ x= (38 plus.minus 18)/35 y $
+(1) $x=8/5 y, y^2 = 25/16 , y=5/4, x= 2$,
+; (2) $x = 4/7 y$ 舍弃;\
+此时 $f(x,y) = -1 x^3 + 25/4 x^3 - 10x - 33 x = 2/sqrt(5) dot (21/4 dot 4/5 - 43) = - 388/(5 sqrt(5))$
+在 $y=0$, $f(x,y)=4 x^3 -33 x <= max(f(0,0), f(3,0)) = 3 dot (36-33) = 9$;\
 在 $x=3$, $f(x,y) = 48 y^2 - (4 dot 9 dot 2 + 16 dot 3) y + 4 dot 27 - 33 dot 3
 = 48 y^2 - 120 y +9 <= max(9, 81)=81$, 在 $x=y$, $f(x,y) = 12 x^2 - 48 x - 33x
-= 12 x^2 - 81 x<=0$; 综上 $(-388/(5 sqrt(5)), 81)$
+= 12 x^2 - 81 x<=0$; 综上 $(-388/(5 sqrt(5)), 81)$ #text(fill: red)[x $y=5/4$ 算错, 应为 $[-84,81]$]
 
 38. $-2 partial_x^2 u - 3 partial_y^2 u = u^2$, 在边界 $2x^2 + 3 y^2 =4$ 上
   $u>=0$; 证明 $u>=0$ 当 $2x^2 + 3 y^2 <= 4$
@@ -698,7 +708,7 @@ u''(t) = - 1/K u^4<0$, 从而
 $ u(t) & >= lambda u(-sqrt(4/K)) + (1-lambda) u(sqrt(4/K)) quad (0<=lambda<=1) \
      & >= lambda M + (1-lambda) M quad (M= min {u(plus.minus sqrt(4/K))}) \
      & =M >=0 $ 遍历 $phi in [0,2 pi], t in [plus.minus sqrt(4/K)]$
-得到 $u(x,y) >=0space forall (x,y) in D$
+得到 $u(x,y) >=0space forall (x,y) in D$ #text(fill: red)[x 应从极值点的角度说明]
 
 39. $partial_u f + partial_v f = 6(u+v) - 3 u^2$ 求 $f(u,v)$
 
@@ -710,7 +720,7 @@ $
   f(u,v) = 6u^2 + 6 u (v-u) - u^3 + Phi(v-u) = 6 u v -u^3 + Phi(v-u)
 $
 若附加边界条件 $f(u, 0) = 3 u^2 - u^3$ 则 $Phi(-u) = 3 u^2$,
-$f(u,v) = 3 u^2 + 3v^3 - u^3$
+$f(u,v) = 3 u^2 + 3 v^2 - u^3$
 
 40. $z = z(x-y, x+ 2y)$ 满足 $ 2 partial_x^2 z + partial_x partial_y z - partial_y^2 z = 1/3 z(0,v) + e^(v/3) $ 且 $z(u,0) = sin u$
 
@@ -718,8 +728,8 @@ $f(u,v) = 3 u^2 + 3v^3 - u^3$
 则 $ partial_u z = 2/3 partial_x w - 1/3 partial_y w = 1/3 "R.H.S" $,
 $ partial_u partial_v z =(2/3 partial_x - 1/3 partial_y) (1/3 partial_x + 1/3 partial_y) w = 1/9 "L.H.S" $
 所以 $partial_u partial_v z = 1/3 partial_u z$,
-$partial_v z = z+ C(v)$, 带入 (1) 得 $C(v)=e^(v/3)$, 解微分方程得 $z = v e^(v/3) + C(u) e^(v/3)$,
-带入 (2) 得 $C(u) = sin u$
+$partial_v z = 1/3 z + C(v)$, 带入 (1) 得 $C(v)=e^(v/3)$, 解微分方程得 $z = v e^(v/3) + C(u) e^(v/3)$,
+带入 (2) 得 $C(u) = sin u$ 所以 $ z = (v + sin u)e^(v/3) $ #text(fill: red)[x???]
 
 == 二重积分
 
@@ -727,7 +737,7 @@ $partial_v z = z+ C(v)$, 带入 (1) 得 $C(v)=e^(v/3)$, 解微分方程得 $z = 
 $
   & = lim_(n->infinity) sum_(i=1)^n sum_(j=1)^n 1/n^2 1/((1 + i/n) sqrt(1 + (j/n)^2)) \
   & = integral.double_(0<=x<=1,0<=y<=1) 1/((1+x)sqrt(1+y^2)) dif x dif y \
-  & = [ln(1+x)]_0^1 [arcsin y]_0^1 = pi/2 ln 2
-$
+  & = [ln(1+x)]_0^1 ["arcsinh" y]_0^1 = pi/2 ln (1 + sqrt(2))
+$ #text(fill: red)[x 区分 arcsin, arcsinh]
 
 2.
