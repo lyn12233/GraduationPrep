@@ -1,0 +1,4 @@
+[submodule "nwpu-underg-thesis"]
+	path = nwpu-underg-thesis
+	url = git@github.com:lyn12233/nwpu-underg-thesis.git
+	branch = main

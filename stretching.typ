@@ -1,9 +1,12 @@
+#import "@preview/cuti:0.4.0": show-cn-fakebold
 #set text(font: ("Times New Roman", "SimSun"))
 #show heading: set text(font: "SimHei")
 #show heading.where(level: 1): set heading(numbering: "1.")
 #show heading.where(level: 2): set heading(numbering: "1.1.")
 #show math.equation: set text(font: "New Computer Modern Math")
 #let b = it => { block(it, inset: 1em, stroke: 1pt, width: 100%, breakable: true) }
+
+#show: show-cn-fakebold
 
 Table of Contents
 #outline(title: none)
@@ -101,6 +104,34 @@ Table of Contents
     $
     不动点 $q_* = 1 + 1/(alpha+1), space y_* = 1/(alpha+1)$
     第三步, 由Lyapunov理论判断稳定性 (略?);
+]
+
+#b[
+  *Q* 计算 $I = integral_0^(infinity) e^(-x^2) dif x$ #h(1fr) *常用不定积分的计算*
+
+  *A* 方法1(转化为二元积分并做坐标变换)
+  $
+    I^2 = integral_0^infinity e^(-x^2) dif x integral_0^infinity e^(-y^2) dif y\
+    = integral_0^(pi/2) dif phi integral_0^(infinity) e^(-r^2) r dif r\
+    = pi/2 dot -1/2 e^(-r^2) |_0^(infinity) = pi/4\
+    therefore I = sqrt(pi)/2
+  $
+
+  方法2(变参法)
+
+  首先考察 $ F(k) = integral_0^(infinity) e^(-k x^2) dif x $ 但是 $F(0)=infinity, F(infinity) = 0$ 无法提供有效信息;
+  再考察 $ F(k) = integral_0^infinity e^(-k (1+x^2)) dif x $ 如此 $F(0) = I, F(infinity) = 0$
+  需要计算 $ F(infinity) - F(0) = integral_0^infinity F'(k) dif k = integral_0^infinity integral_0^infinity -(1+x^2) e^(-k (1+x^2)) dif x dif k $ 仍然困难;
+  再考察 $ F(k) = integral_0^infinity 1/(1+x^2) e^(-k(1+x^2)) dif x $
+  则 $F(0) = integral_0^infinity 1/(1+x^2) dif x = pi/2$, $F(infinity) = 0$,
+  $
+    F(infinity) - F(0) & = integral_0^infinity integral_0^infinity - e^(-k (1+x^2)) dif x dif k \
+                       & = integral_0^infinity - e^(-k) integral_0^infinity e^(-k x^2) dif x dif k \
+                       & =integral_0^infinity - k^(-1/2) e^(-k) dif k dot I \
+                       & = integral_0^infinity -2 e^(-t^2) dif t dot I \
+                       & = -2 I^2 = -pi/2
+  $
+  得 $ I = sqrt(pi)/2 $
 ]
 
 = 多元函数的微积分
